@@ -205,7 +205,7 @@ MonoBehaviour:
   wallCheckRadius: 0.05
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 8321
   checkDistance: 0.05
 --- !u!50 &578464856096304579
 Rigidbody2D:
