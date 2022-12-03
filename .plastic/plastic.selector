@@ -1,0 +1,4 @@
+repository "Dva_Platformer@Primal_Endo@cloud"
+  path "/"
+    br "/main"
+    co "/main"
