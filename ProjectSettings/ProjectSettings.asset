@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Dva_Platformer
+  companyName: TheCantabrian
+  productName: TheMightyHooker
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -755,10 +755,10 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: 98bac76f-5f43-4dd3-b57b-13556be5c3e9
+  cloudProjectId: 93d99b1d-4a6a-47ea-af89-4521da2a89d4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Dva_Platformer
+  projectName: TheMightyHooker
   organizationId: primal_endo
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
