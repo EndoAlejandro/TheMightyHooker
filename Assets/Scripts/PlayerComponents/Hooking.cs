@@ -47,7 +47,8 @@ namespace PlayerComponents
 
         private void RotateCrossHair()
         {
-            var offset = Player.IsFacingRight ? 0 : 180f;
+            var offsetCheck = Player.IsSliding ? !Player.IsFacingRight : Player.IsFacingRight;
+            var offset = offsetCheck ? 0 : 180f;
 
             var targetAngle = Mathf.Abs(Input.Movement.magnitude) > 0
                 ? Vector2.SignedAngle(Vector2.right, Input.Movement.normalized)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Enemies;
 using UnityEngine;
 
@@ -21,8 +20,9 @@ namespace PlayerComponents
 
         public bool IsAlive { get; private set; }
         public bool IsFacingRight { get; set; } = true;
-        public bool Grounded { get; private set; }
+        public bool IsGrounded { get; private set; }
         public bool IsTouchingWall { get; private set; }
+        public bool IsSliding { get; set; }
         public bool IsHooking { get; set; }
 
         private void Awake() => environmentCheck = GetComponent<EnvironmentCheck>();
@@ -30,7 +30,7 @@ namespace PlayerComponents
 
         private void FixedUpdate()
         {
-            Grounded = environmentCheck.Grounded;
+            IsGrounded = environmentCheck.Grounded;
             IsTouchingWall = environmentCheck.CheckWalls(IsFacingRight);
         }
 

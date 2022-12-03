@@ -445,6 +445,8 @@ MonoBehaviour:
   coyoteTime: 0.15
   fallSpeedLimit: 12
   jumpCancellationScale: 10
+  horizontalJumpForce: 15
+  wallFallSpeedLimit: 2.5
 --- !u!114 &9156122726420407114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099e5fb2eabc4902b1d7cc534e8c8722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 4305154904955312227}
   jumpClip: {fileID: 8300000, guid: 31473352b71bb482ca79e562969a7148, type: 3}
   landClip: {fileID: 8300000, guid: a5a5905429ad44617a98743b2f870fa6, type: 3}
   hookClip: {fileID: 8300000, guid: 328763bc966b64b91bd57907bd828b53, type: 3}
