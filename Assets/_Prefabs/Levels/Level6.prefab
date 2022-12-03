@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 221239420926663352}
   - component: {fileID: 221239420926663354}
   - component: {fileID: 221239420926663355}
+  - component: {fileID: 4697781475089701338}
   m_Layer: 0
   m_Name: Props_TileMap
   m_TagString: Untagged
@@ -372,6 +373,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &4697781475089701338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221239420926663353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1282bbae53aa5e4c9acdc283489910e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5370245496830909721
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +397,7 @@ GameObject:
   - component: {fileID: 3710276210925488237}
   - component: {fileID: 5166664404344100521}
   - component: {fileID: 787414102074777015}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +594,7 @@ TilemapRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5370245496830909721}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

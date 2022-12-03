@@ -58,8 +58,6 @@ namespace Enemies
             base.OnCollisionEnter2D(col);
             if ((collisionLayerMask & 1 << col.gameObject.layer) != 1 << col.gameObject.layer) return;
 
-            var difference = (Vector3)col.contacts[0].point - body.position;
-            Debug.Log(difference);
             if (Math.Abs(col.contacts[0].point.x - body.position.x) > 0.35f) direction.x *= -1;
             else if (Math.Abs(col.contacts[0].point.y - body.position.y) > 0.10f) direction.y *= -1;
         }
