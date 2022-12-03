@@ -15,6 +15,7 @@ namespace PlayerComponents
         [SerializeField] private float coyoteTime = 0.15f;
         [SerializeField] private float fallSpeedLimit = 12f;
         [SerializeField] private float jumpCancellationScale = 1.5f;
+        [SerializeField] private float jumpRate = 0.25f;
 
         [Header("WallJump")] [SerializeField] private float horizontalJumpForce = 100f;
         [SerializeField] private float wallFallSpeedLimit = 5f;
@@ -47,7 +48,7 @@ namespace PlayerComponents
             }
 
 
-            if (Input.Jump)
+            if (Input.Jump && lastJumpTime < 0)
             {
                 if (Player.IsSliding)
                     WallJump();
@@ -66,7 +67,7 @@ namespace PlayerComponents
         {
             var lookDirection = Player.IsFacingRight ? -horizontalJumpForce : horizontalJumpForce;
             Rigidbody.velocity = new Vector2(lookDirection, jumpForce);
-            Player.Jump();
+            JumpPerformed();
         }
 
         private void JumpCancellation()
@@ -98,7 +99,8 @@ namespace PlayerComponents
         private void Timers()
         {
             lastGroundedTime -= Time.fixedDeltaTime;
-            lastJumpTime -= Time.fixedDeltaTime;
+            if (Player.IsGrounded)
+                lastJumpTime -= Time.fixedDeltaTime;
         }
 
         private void Jump()
@@ -109,8 +111,13 @@ namespace PlayerComponents
             lastJumpTime = jumpBufferTime;
             lastGroundedTime = 0;
             isJumping = true;
+            JumpPerformed();
+        }
 
+        private void JumpPerformed()
+        {
             Player.Jump();
+            lastJumpTime = jumpRate;
         }
 
         private void Friction()

@@ -131,5 +131,12 @@ namespace PlayerComponents
 
             return closestSocket;
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.magenta;
+            var offset = Vector3.up * 0.5f;
+            Gizmos.DrawWireSphere(transform.position + offset, detectionRange);
+        }
     }
 }

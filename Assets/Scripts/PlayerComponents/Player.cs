@@ -25,12 +25,19 @@ namespace PlayerComponents
         public bool IsSliding { get; set; }
         public bool IsHooking { get; set; }
 
-        private void Awake() => environmentCheck = GetComponent<EnvironmentCheck>();
+        private Rigidbody2D rigidbody;
+
+        private void Awake()
+        {
+            environmentCheck = GetComponent<EnvironmentCheck>();
+            rigidbody = GetComponent<Rigidbody2D>();
+        }
+
         private void Start() => IsAlive = true;
 
         private void FixedUpdate()
         {
-            IsGrounded = environmentCheck.Grounded;
+            IsGrounded = environmentCheck.Grounded && rigidbody.velocity.y < 0.1f;
             IsTouchingWall = environmentCheck.CheckWalls(IsFacingRight);
         }
 
@@ -50,13 +57,6 @@ namespace PlayerComponents
             if (!IsAlive) return;
             IsAlive = false;
             OnDeath?.Invoke();
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.magenta;
-            if (HookAnchor == null) return;
-            Gizmos.DrawWireSphere(HookAnchor.position, 7f);
         }
     }
 }
