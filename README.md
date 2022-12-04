@@ -32,7 +32,7 @@
 
 ### Hazards
 - [x] Static Spikes.
-- [ ] Spikes Activated by player one time and multi time.
-- [ ] Spikes Activated in time.
+- [x] Spikes Activated by player one time and multi time.
+- [x] Spikes Activated in time.
 - [ ] Turret Constant shooting.
 - [ ] Turret Activated by player.
