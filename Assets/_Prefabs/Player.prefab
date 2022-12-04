@@ -443,7 +443,7 @@ MonoBehaviour:
   jumpForce: 11.325
   slimeJumpForce: 13.325
   jumpBufferTime: 0.5
-  coyoteTime: 0.15
+  coyoteTime: 0.17
   fallSpeedLimit: 12
   jumpCancellationScale: 10
   horizontalJumpForce: 15
