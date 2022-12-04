@@ -2909,7 +2909,7 @@ GameObject:
   - component: {fileID: 1956942115826477914}
   - component: {fileID: 1956942115826477909}
   m_Layer: 0
-  m_Name: Level1
+  m_Name: Linspiration1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
