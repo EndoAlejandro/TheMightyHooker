@@ -445,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.data[0].levels.Array.size
@@ -453,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.data[1].levels.Array.size
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.data[2].levels.Array.size
@@ -483,6 +483,30 @@ PrefabInstance:
       propertyPath: levelsCluster.Array.data[0].levels.Array.data[5]
       value: 
       objectReference: {fileID: 8076921972772233826, guid: 81dbf4b5c514e2641aff9f0f8133f5ff, type: 3}
+    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
+      propertyPath: levelsCluster.Array.data[1].levels.Array.data[0]
+      value: 
+      objectReference: {fileID: 8076921972772233826, guid: e4c6e48f1f926c543aa7dec2cfb4c64c, type: 3}
+    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
+      propertyPath: levelsCluster.Array.data[1].levels.Array.data[1]
+      value: 
+      objectReference: {fileID: 8076921972772233826, guid: 6900206f62c72c64ebb023210df78e18, type: 3}
+    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
+      propertyPath: levelsCluster.Array.data[1].levels.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
+      propertyPath: levelsCluster.Array.data[1].levels.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
+      propertyPath: levelsCluster.Array.data[1].levels.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
+      propertyPath: levelsCluster.Array.data[1].levels.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.data[2].levels.Array.data[0]
       value: 
