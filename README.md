@@ -15,7 +15,7 @@
 - [x] Hook Sockets.
 - [x] Gems.
 - [x] End Door.
-- [ ] Slime/Bounce Block.
+- [x] Slime/Bounce Block.
 
 ### Walker Enemy
 - [x] Movement.
