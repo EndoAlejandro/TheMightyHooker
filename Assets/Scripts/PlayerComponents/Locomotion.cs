@@ -44,11 +44,7 @@ namespace PlayerComponents
             Friction();
 
             if (Mathf.Abs(Input.Movement.x) > 0.1f || Player.IsGrounded || !Player.IsTouchingWall)
-            {
-                Player.IsSliding = Player.IsTouchingWall &&
-                                   !Player.IsGrounded &&
-                                   Rigidbody.velocity.y < 0;
-            }
+                WallSlide();
 
             if (Input.Jump && lastJumpTime < 0)
             {
@@ -63,6 +59,21 @@ namespace PlayerComponents
                 JumpCancellation();
 
             LimitFallingSpeed();
+        }
+
+        private void WallSlide()
+        {
+            var sliding = Player.IsTouchingWall &&
+                          !Player.IsGrounded &&
+                          Rigidbody.velocity.y < 0;
+
+            if (Player.IsSliding && !sliding)
+            {
+                lastGroundedTime = coyoteTime;
+                isJumping = false;
+            }
+
+            Player.IsSliding = sliding;
         }
 
         #region Behaviour
