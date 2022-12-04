@@ -62,13 +62,6 @@ namespace PlayerComponents
             LimitFallingSpeed();
         }
 
-        private void WallJump()
-        {
-            var lookDirection = Player.IsFacingRight ? -horizontalJumpForce : horizontalJumpForce;
-            Rigidbody.velocity = new Vector2(lookDirection, jumpForce);
-            JumpPerformed();
-        }
-
         private void JumpCancellation()
         {
             var speedReduction = Mathf.Lerp(Rigidbody.velocity.y, 0f, Time.deltaTime * jumpCancellationScale);
@@ -105,14 +98,20 @@ namespace PlayerComponents
         {
             Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, 0f);
             Rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
             lastGroundedTime = 0;
-            isJumping = true;
+            JumpPerformed();
+        }
+        
+        private void WallJump()
+        {
+            var lookDirection = Player.IsFacingRight ? -horizontalJumpForce : horizontalJumpForce;
+            Rigidbody.velocity = new Vector2(lookDirection, jumpForce);
             JumpPerformed();
         }
 
         private void JumpPerformed()
         {
+            isJumping = true;
             lastJumpTime = jumpBufferTime;
             Player.Jump();
         }

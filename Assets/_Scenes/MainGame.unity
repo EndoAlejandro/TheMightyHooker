@@ -443,41 +443,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[0].levels.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[1].levels.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[2].levels.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[0].levels.Array.data[0]
-      value: 
-      objectReference: {fileID: 8076921972772233826, guid: 76fe025242512114a9ae71562be51093, type: 3}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[0].levels.Array.data[1]
-      value: 
-      objectReference: {fileID: 8076921972772233826, guid: cb50aa86d9fc6e04586a60a0321afc08, type: 3}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[0].levels.Array.data[2]
-      value: 
-      objectReference: {fileID: 8076921972772233826, guid: 87dd6c68eacf8284b9b14c5a2bfe4aa5, type: 3}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[0].levels.Array.data[3]
-      value: 
-      objectReference: {fileID: 8076921972772233826, guid: d46637147a7433b48836b9d872d8d6cb, type: 3}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[0].levels.Array.data[4]
-      value: 
-      objectReference: {fileID: 8076921972772233826, guid: 81dbf4b5c514e2641aff9f0f8133f5ff, type: 3}
-    - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
-      propertyPath: levelsCluster.Array.data[1].levels.Array.data[0]
-      value: 
-      objectReference: {fileID: 8076921972772233826, guid: 81dbf4b5c514e2641aff9f0f8133f5ff, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}

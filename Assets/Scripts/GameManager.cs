@@ -20,12 +20,6 @@ public class GameManager : Singleton<GameManager>
 
     private void Start() => ReturnToMainMenu();
 
-    public void LoadGameScene()
-    {
-        SceneManager.LoadSceneAsync("_Scenes/MainGame");
-        SceneManager.LoadSceneAsync("_Scenes/GameMenu", LoadSceneMode.Additive);
-    }
-
     public void PauseGame()
     {
         IsPaused = true;
@@ -51,7 +45,7 @@ public class GameManager : Singleton<GameManager>
     public void WinLevel(int maxClusterLevel)
     {
         CurrentSubLevel++;
-        if (CurrentSubLevel > maxClusterLevel)
+        if (CurrentSubLevel >= maxClusterLevel)
         {
             CurrentLevel++;
             CurrentSubLevel = 0;
@@ -63,6 +57,7 @@ public class GameManager : Singleton<GameManager>
     public void WinGame()
     {
         CurrentLevel = 0;
+        CurrentSubLevel = 0;
         SceneManager.LoadSceneAsync("_Scenes/GameOverMenu");
     }
 
@@ -70,6 +65,14 @@ public class GameManager : Singleton<GameManager>
     {
         if (IsPaused) UnPauseGame();
         StartCoroutine(GoToMainMenu());
+    }
+
+    public void LoadGameScene() => StartCoroutine(LoadGameSceneAsync());
+
+    private IEnumerator LoadGameSceneAsync()
+    {
+        yield return SceneManager.LoadSceneAsync("_Scenes/MainGame");
+        yield return SceneManager.LoadSceneAsync("_Scenes/GameMenu", LoadSceneMode.Additive);
     }
 
     private IEnumerator GoToMainMenu()

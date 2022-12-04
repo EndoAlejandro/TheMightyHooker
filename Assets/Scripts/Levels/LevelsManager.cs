@@ -22,12 +22,11 @@ namespace Levels
             currentLevel = GameManager.Instance.CurrentLevel;
             currentSubLevel = GameManager.Instance.CurrentSubLevel;
 
-
             if (currentLevel >= levelsCluster.Length)
                 GameManager.Instance.WinGame();
             else
             {
-                _maxClusterLevel = levelsCluster[currentLevel].levels.Length - 1;
+                _maxClusterLevel = levelsCluster[currentLevel].levels.Length;
                 var level = levelsCluster[currentLevel].levels[currentSubLevel];
                 Instantiate(level, transform);
                 var player = Instantiate(playerPrefab, level.PlayerSpawnPoint.position, Quaternion.identity);

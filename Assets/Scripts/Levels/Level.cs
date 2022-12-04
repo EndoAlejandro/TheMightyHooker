@@ -33,19 +33,13 @@ namespace Levels
         {
             SetupLevelComponents();
 
-            SoundManager.Instance.PlayMusic(musicClip);
-            // PLayMusic();
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlayMusic(musicClip);
 
             if (gems.Length > 0)
                 gems[0].transform.parent.GetComponent<TilemapRenderer>().enabled = false;
         }
 
-        /*private void PLayMusic()
-        {
-            audioSource.loop = true;
-            audioSource.clip = musicClip;
-            audioSource.Play();
-        }*/
 
         private void SetupLevelComponents()
         {

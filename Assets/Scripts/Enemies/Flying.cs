@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CustomUtils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,7 +19,23 @@ namespace Enemies
         [SerializeField] private MovementType movementType;
         [SerializeField] private float speed;
         [SerializeField] private Transform body;
+        [SerializeField] private float collisionDetectionRange = 0.05f;
         [SerializeField] private LayerMask collisionLayerMask;
+
+        [SerializeField] private Transform topPoint;
+        [SerializeField] private Transform bottomPoint;
+        [SerializeField] private Transform leftPoint;
+        [SerializeField] private Transform rightPoint;
+
+        private new Collider2D collider;
+        private Collider2D[] collisions;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            collider = GetComponent<Collider2D>();
+            collisions = new Collider2D[10];
+        }
 
         protected override void Start()
         {
@@ -49,17 +65,43 @@ namespace Enemies
             direction = new Vector2(x, y).normalized;
         }
 
-        private void Update() => IsFacingRight = Rigidbody.velocity.x > 0;
-        private void FixedUpdate() => Movement();
+        private void FixedUpdate()
+        {
+            IsFacingRight = Rigidbody.velocity.x > 0;
+            Movement();
+        }
+
+        private void Update() => CheckCardinalPoints();
+
+        private void CheckCardinalPoints()
+        {
+            if (CheckWalls(topPoint))
+                direction = direction.With(y: Mathf.Abs(direction.y) * -1);
+            else if (CheckWalls(bottomPoint))
+                direction = direction.With(y: Mathf.Abs(direction.y));
+            if (CheckWalls(rightPoint))
+                direction = direction.With(x: Mathf.Abs(direction.x) * -1);
+            else if (CheckWalls(leftPoint))
+                direction = direction.With(x: Mathf.Abs(direction.x));
+        }
+
         private void Movement() => Rigidbody.velocity = direction * speed;
 
-        protected override void OnCollisionEnter2D(Collision2D col)
+        private bool CheckWalls(Transform checkPoint)
         {
-            base.OnCollisionEnter2D(col);
-            if ((collisionLayerMask & 1 << col.gameObject.layer) != 1 << col.gameObject.layer) return;
+            var results =
+                Physics2D.OverlapCircleNonAlloc(checkPoint.position, collisionDetectionRange, collisions,
+                    collisionLayerMask);
+            return results > 0;
+        }
 
-            if (Math.Abs(col.contacts[0].point.x - body.position.x) > 0.35f) direction.x *= -1;
-            else if (Math.Abs(col.contacts[0].point.y - body.position.y) > 0.10f) direction.y *= -1;
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(topPoint.position, collisionDetectionRange);
+            Gizmos.DrawWireSphere(bottomPoint.position, collisionDetectionRange);
+            Gizmos.DrawWireSphere(leftPoint.position, collisionDetectionRange);
+            Gizmos.DrawWireSphere(rightPoint.position, collisionDetectionRange);
         }
     }
 }

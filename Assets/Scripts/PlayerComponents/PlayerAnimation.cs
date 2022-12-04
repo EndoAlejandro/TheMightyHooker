@@ -53,7 +53,7 @@ namespace PlayerComponents
         private void OnDeath()
         {
             CameraController.Instance.CamShake(deathShake);
-            deathDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
+            deathDust.Get<PoolAfterSeconds>(Player.HookAnchor.position, Quaternion.identity);
             animator.SetTrigger(Death);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.gravityScale = 0f;
