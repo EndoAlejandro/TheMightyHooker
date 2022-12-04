@@ -11,6 +11,8 @@ namespace Hazards
 
         [SerializeField] private float shakeMagnitude = 0.2f;
 
+        [SerializeField] private bool turnOffAfterTime = true;
+
         private bool activating;
 
         private Vector3 initialPosition;
@@ -30,7 +32,8 @@ namespace Hazards
         private IEnumerator ActivationCycle()
         {
             yield return ActivateSpikes();
-            yield return ChangeSpikesStateAfterDelay(false);
+            if (turnOffAfterTime)
+                yield return ChangeSpikesStateAfterDelay(false);
         }
 
         private IEnumerator ActivateSpikes()

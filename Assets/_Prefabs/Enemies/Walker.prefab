@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallLayerMask:
     serializedVersion: 2
-    m_Bits: 2185
+    m_Bits: 10369
   wallCheckRadius: 0.05
   groundLayerMask:
     serializedVersion: 2
