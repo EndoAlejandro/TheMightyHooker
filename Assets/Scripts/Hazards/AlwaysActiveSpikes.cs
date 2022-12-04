@@ -1,5 +1,4 @@
-﻿using System;
-using PlayerComponents;
+﻿using PlayerComponents;
 
 namespace Hazards
 {
