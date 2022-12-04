@@ -441,6 +441,7 @@ MonoBehaviour:
   velocityPower: 0.96
   frictionAmount: 0.22
   jumpForce: 11.325
+  slimeJumpForce: 13.325
   jumpBufferTime: 0.5
   coyoteTime: 0.15
   fallSpeedLimit: 12

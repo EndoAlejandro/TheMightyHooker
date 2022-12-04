@@ -12,6 +12,7 @@ namespace PlayerComponents
         public event Action OnHooking;
         public event Action OnDeath;
         public event Action OnShooting;
+        public event Action OnSlimeBlock;
 
         [SerializeField] private Transform hookAnchor;
 
@@ -44,6 +45,7 @@ namespace PlayerComponents
         public void Jump() => OnJump?.Invoke();
         public void Land() => OnLanding?.Invoke();
         public void Shot() => OnShooting?.Invoke();
+        public void SlimeBlock() => OnSlimeBlock?.Invoke();
 
         public void Hooking(bool isHooking)
         {

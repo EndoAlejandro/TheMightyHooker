@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PlayerComponents
 {
@@ -10,7 +11,8 @@ namespace PlayerComponents
         [SerializeField] private float velocityPower = 0.96f;
         [SerializeField] private float frictionAmount = 0.22f;
 
-        [Header("Jump")] [SerializeField] private float jumpForce = 13f;
+        [Header("Jump")] [SerializeField] private float jumpForce = 11.325f;
+        [SerializeField] private float slimeJumpForce = 13.325f;
         [SerializeField] private float jumpBufferTime = 0.5f;
         [SerializeField] private float coyoteTime = 0.15f;
         [SerializeField] private float fallSpeedLimit = 12f;
@@ -26,6 +28,8 @@ namespace PlayerComponents
         private float lastJumpTime;
 
         private float maxFallSpeed;
+
+        private void Start() => Player.OnSlimeBlock += OnSlimeBlock;
 
         private void FixedUpdate()
         {
@@ -46,7 +50,6 @@ namespace PlayerComponents
                                    Rigidbody.velocity.y < 0;
             }
 
-
             if (Input.Jump && lastJumpTime < 0)
             {
                 if (Player.IsSliding)
@@ -62,11 +65,7 @@ namespace PlayerComponents
             LimitFallingSpeed();
         }
 
-        private void JumpCancellation()
-        {
-            var speedReduction = Mathf.Lerp(Rigidbody.velocity.y, 0f, Time.deltaTime * jumpCancellationScale);
-            Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, speedReduction);
-        }
+        #region Behaviour
 
         private void Grounding()
         {
@@ -94,6 +93,10 @@ namespace PlayerComponents
             lastJumpTime -= Time.fixedDeltaTime;
         }
 
+        #endregion
+
+        #region Jump
+
         private void Jump()
         {
             Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, 0f);
@@ -101,7 +104,15 @@ namespace PlayerComponents
             lastGroundedTime = 0;
             JumpPerformed();
         }
-        
+
+        private void OnSlimeBlock()
+        {
+            Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, slimeJumpForce);
+            isJumping = false;
+            lastJumpTime = jumpBufferTime;
+            Player.Jump();
+        }
+
         private void WallJump()
         {
             var lookDirection = Player.IsFacingRight ? -horizontalJumpForce : horizontalJumpForce;
@@ -116,14 +127,15 @@ namespace PlayerComponents
             Player.Jump();
         }
 
-        private void Friction()
+        private void JumpCancellation()
         {
-            if (!Player.IsGrounded || !(Mathf.Abs(Input.Movement.x) < 0.01f)) return;
-
-            var amount = Mathf.Min(Mathf.Abs(Rigidbody.velocity.x), Mathf.Abs(frictionAmount));
-            amount *= Mathf.Sign(Rigidbody.velocity.x);
-            Rigidbody.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+            var speedReduction = Mathf.Lerp(Rigidbody.velocity.y, 0f, Time.deltaTime * jumpCancellationScale);
+            Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, speedReduction);
         }
+
+        #endregion
+
+        #region Movement
 
         private void Run()
         {
@@ -136,9 +148,21 @@ namespace PlayerComponents
             Rigidbody.AddForce(movement * Vector2.right);
         }
 
+        private void Friction()
+        {
+            if (!Player.IsGrounded || !(Mathf.Abs(Input.Movement.x) < 0.01f)) return;
+
+            var amount = Mathf.Min(Mathf.Abs(Rigidbody.velocity.x), Mathf.Abs(frictionAmount));
+            amount *= Mathf.Sign(Rigidbody.velocity.x);
+            Rigidbody.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
+
+        #endregion
+
         private void OnDestroy()
         {
             if (Player == null) return;
+            Player.OnSlimeBlock -= OnSlimeBlock;
         }
     }
 }

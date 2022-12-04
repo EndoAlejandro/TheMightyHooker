@@ -47,13 +47,13 @@ MonoBehaviour:
   playerPrefab: {fileID: 9156122726420407116, guid: 4548b7c3bccd4014a8693b7f5e60c9a4, type: 3}
   levelsCluster:
   - levels:
-    - {fileID: 8076921972772233826, guid: b27c048113db36b49b57397f44c0a67f, type: 3}
-  - levels:
+    - {fileID: 8076921972772233826, guid: 81dbf4b5c514e2641aff9f0f8133f5ff, type: 3}
     - {fileID: 8076921972772233826, guid: 76fe025242512114a9ae71562be51093, type: 3}
     - {fileID: 8076921972772233826, guid: cb50aa86d9fc6e04586a60a0321afc08, type: 3}
     - {fileID: 8076921972772233826, guid: 87dd6c68eacf8284b9b14c5a2bfe4aa5, type: 3}
     - {fileID: 8076921972772233826, guid: d46637147a7433b48836b9d872d8d6cb, type: 3}
-    - {fileID: 8076921972772233826, guid: 81dbf4b5c514e2641aff9f0f8133f5ff, type: 3}
+  - levels:
+    - {fileID: 8076921972772233826, guid: b27c048113db36b49b57397f44c0a67f, type: 3}
   - levels:
     - {fileID: 8076921972772233826, guid: 23b4522a2e4e97447a561c2cb64b6817, type: 3}
     - {fileID: 8076921972772233826, guid: 47841968b42817345aac70f4ff243f92, type: 3}
