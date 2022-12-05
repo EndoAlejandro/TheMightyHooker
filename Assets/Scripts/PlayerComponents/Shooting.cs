@@ -19,8 +19,8 @@ namespace PlayerComponents
 
         private void Update()
         {
-            if(GameManager.IsPaused || !Player.IsAlive) return;
-            
+            if (GameManager.IsPaused || !Player.IsAlive) return;
+
             currentFireRate -= Time.deltaTime;
 
             if (CanShoot && Input.Shoot && !Player.IsHooking)
@@ -29,13 +29,12 @@ namespace PlayerComponents
 
         private void Shoot()
         {
-            var hookDirection = GetHookDirection();
-            var offsetDirection = Player.IsFacingRight ? Vector3.right : Vector3.left;
+            var revertDirection = Player.IsSliding ? !Player.IsFacingRight : Player.IsFacingRight;
+            var offsetDirection = revertDirection ? Vector3.right : Vector3.left;
             var offset = offsetDirection * barrelOffset;
 
             var projectile =
                 projectilePrefab.Get<Projectile>(Player.HookAnchor.transform.position + offset, Quaternion.identity);
-            //projectile.Initialize(hookDirection, projectileSpeed, projectileLifeTime);
             projectile.Initialize(offsetDirection, projectileSpeed, projectileLifeTime);
             Player.Shot();
             ResetFireRate();

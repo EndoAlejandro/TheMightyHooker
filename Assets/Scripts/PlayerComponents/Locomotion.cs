@@ -22,6 +22,7 @@ namespace PlayerComponents
         [SerializeField] private float wallFallSpeedLimit = 5f;
 
         private bool isJumping;
+        private bool isWallJumping;
         private bool wasGrounded;
 
         private float lastGroundedTime;
@@ -70,7 +71,6 @@ namespace PlayerComponents
             if (Player.IsSliding && !sliding)
             {
                 lastGroundedTime = coyoteTime;
-                isJumping = false;
             }
 
             Player.IsSliding = sliding;
@@ -86,6 +86,7 @@ namespace PlayerComponents
 
                 lastGroundedTime = coyoteTime;
                 isJumping = false;
+                isWallJumping = false;
             }
 
             wasGrounded = Player.IsGrounded;
@@ -120,6 +121,7 @@ namespace PlayerComponents
         {
             Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, slimeJumpForce);
             isJumping = false;
+            isWallJumping = false;
             lastJumpTime = jumpBufferTime;
             Player.Jump();
         }
@@ -128,6 +130,7 @@ namespace PlayerComponents
         {
             var lookDirection = Player.IsFacingRight ? -horizontalJumpForce : horizontalJumpForce;
             Rigidbody.velocity = new Vector2(lookDirection, jumpForce);
+            isWallJumping = true;
             JumpPerformed();
         }
 
