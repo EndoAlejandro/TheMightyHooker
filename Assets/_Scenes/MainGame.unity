@@ -453,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.data[1].levels.Array.size
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 413720331827053818, guid: 694d3a1c9d6bcce4080fb41a1f4c8e32, type: 3}
       propertyPath: levelsCluster.Array.data[2].levels.Array.size
