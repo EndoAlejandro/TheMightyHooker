@@ -7,7 +7,7 @@ namespace PlayerComponents
         [SerializeField] private Projectile projectilePrefab;
 
         [SerializeField] private float fireRate = 1f;
-        [SerializeField] private float projectileSpeed = 1f;
+        [SerializeField] private float projectileSpeed = 7f;
         [SerializeField] private float projectileLifeTime = 1f;
         [Range(0f, 1f)] [SerializeField] private float barrelOffset = 0.5f;
 
