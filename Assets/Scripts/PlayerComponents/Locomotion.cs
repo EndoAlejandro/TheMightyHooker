@@ -47,7 +47,7 @@ namespace PlayerComponents
             if (Mathf.Abs(Input.Movement.x) > 0.1f || Player.IsGrounded || !Player.IsTouchingWall)
                 WallSlide();
 
-            if (Input.Jump && lastJumpTime < 0)
+            if (Input.Jump && (lastJumpTime < 0))
             {
                 if (Player.IsSliding)
                     WallJump();
@@ -72,6 +72,8 @@ namespace PlayerComponents
             {
                 lastGroundedTime = coyoteTime;
             }
+
+            if (sliding) isJumping = false;
 
             Player.IsSliding = sliding;
         }
