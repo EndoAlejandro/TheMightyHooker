@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a27377ca0e7440884f04f6b93c45b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stunTime: 5
+  canDie: 0
   movementType: 0
   speed: 2
   body: {fileID: 3420134092887937271}

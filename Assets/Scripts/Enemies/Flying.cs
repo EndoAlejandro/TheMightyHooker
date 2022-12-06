@@ -16,10 +16,12 @@ namespace Enemies
 
         private Vector2 direction;
 
-        [SerializeField] private MovementType movementType;
+        [Header("Movement")] [SerializeField] private MovementType movementType;
         [SerializeField] private float speed;
-        [SerializeField] private Transform body;
-        [SerializeField] private float collisionDetectionRange = 0.05f;
+
+        [Header("Detection system")] [SerializeField]
+        private float collisionDetectionRange = 0.05f;
+
         [SerializeField] private LayerMask collisionLayerMask;
 
         [SerializeField] private Transform topPoint;
@@ -27,13 +29,11 @@ namespace Enemies
         [SerializeField] private Transform leftPoint;
         [SerializeField] private Transform rightPoint;
 
-        private new Collider2D collider;
         private Collider2D[] collisions;
 
         protected override void Awake()
         {
             base.Awake();
-            collider = GetComponent<Collider2D>();
             collisions = new Collider2D[10];
         }
 
@@ -67,6 +67,7 @@ namespace Enemies
 
         private void FixedUpdate()
         {
+            if (IsStunned) return;
             IsFacingRight = Rigidbody.velocity.x > 0;
             Movement();
         }
@@ -85,7 +86,7 @@ namespace Enemies
                 direction = direction.With(x: Mathf.Abs(direction.x));
         }
 
-        private void Movement() => Rigidbody.velocity = direction * speed;
+        protected override void Movement() => Rigidbody.velocity = direction * speed;
 
         private bool CheckWalls(Transform checkPoint)
         {

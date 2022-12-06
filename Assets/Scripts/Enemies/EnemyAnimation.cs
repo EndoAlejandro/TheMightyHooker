@@ -18,6 +18,7 @@ namespace Enemies
         private new SpriteRenderer renderer;
         private new Collider2D collider;
         private Animator animator;
+        private static readonly int Stun = Animator.StringToHash("Stun");
 
         protected override void Awake()
         {
@@ -27,7 +28,12 @@ namespace Enemies
             collider = GetComponent<Collider2D>();
         }
 
-        private void Start() => Enemy.OnDeath += OnDeath;
+        private void Start()
+        {
+            Enemy.OnDeath += OnDeath;
+            Enemy.OnStun += OnStun;
+        }
+
 
         private void Update()
         {
@@ -46,11 +52,14 @@ namespace Enemies
             deathDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
             StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, () => Destroy(gameObject)));
         }
+        
+        private void OnStun(bool state) => animator.SetBool(Stun, state);
 
         private void OnDestroy()
         {
             if (Enemy == null) return;
             Enemy.OnDeath -= OnDeath;
+            Enemy.OnStun -= OnStun;
         }
     }
 }
