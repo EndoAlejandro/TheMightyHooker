@@ -1,21 +1,37 @@
 ﻿using System.Collections;
 using PlayerComponents;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Hazards
 {
     public class SpikesActivatedByPlayer : Spikes
     {
+        [Header("Spike type")]
+        [SerializeField] private bool turnOffAfterTime = true;
+
+        [Header("Timers")]
         [SerializeField] private float activationDelay = 1f;
         [SerializeField] private float deActivationDelay = 2f;
 
+        [Header("Visual")]
+        [SerializeField] private Sprite unActiveSprite;
         [SerializeField] private float shakeMagnitude = 0.2f;
 
-        [SerializeField] private bool turnOffAfterTime = true;
 
-        private bool activating;
+        private bool isActivating;
+        private bool isActive;
 
         private Vector3 initialPosition;
+
+        private new SpriteRenderer renderer;
+        private Sprite activeSprite;
+
+        private void Awake()
+        {
+            renderer = GetComponentInChildren<SpriteRenderer>();
+            activeSprite = renderer.sprite;
+        }
 
         private void Start()
         {
@@ -23,17 +39,26 @@ namespace Hazards
             SetSpikesState(false);
         }
 
-        protected override void UnActiveTriggerValidation(Player player)
+        private void SetSpikesState(bool state)
         {
-            if (activating) return;
-            StartCoroutine(ActivationCycle());
+            isActive = state;
+            renderer.sprite = isActive ? activeSprite : unActiveSprite;
+        }
+
+        protected override void OnTriggerEnter2D(Collider2D col)
+        {
+            if (!col.TryGetComponent(out Player player)) return;
+            if (isActive)
+                KillPLayer(player);
+            else if (!isActivating)
+                StartCoroutine(ActivationCycle());
         }
 
         private IEnumerator ActivationCycle()
         {
             yield return ActivateSpikes();
             if (turnOffAfterTime)
-                yield return ChangeSpikesStateAfterDelay(false);
+                yield return ChangeStateAfterDelay(false);
         }
 
         private IEnumerator ActivateSpikes()
@@ -52,11 +77,11 @@ namespace Hazards
 
             transform.localPosition = initialPosition;
             SetSpikesState(true);
-            activating = false;
+            isActivating = false;
             yield return null;
         }
 
-        private IEnumerator ChangeSpikesStateAfterDelay(bool status)
+        private IEnumerator ChangeStateAfterDelay(bool status)
         {
             var waitTime = status ? activationDelay : deActivationDelay;
             yield return new WaitForSeconds(waitTime);

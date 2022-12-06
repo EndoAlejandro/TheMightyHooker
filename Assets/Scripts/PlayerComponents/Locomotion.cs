@@ -74,7 +74,6 @@ namespace PlayerComponents
             }
 
             if (sliding) isJumping = false;
-
             Player.IsSliding = sliding;
         }
 

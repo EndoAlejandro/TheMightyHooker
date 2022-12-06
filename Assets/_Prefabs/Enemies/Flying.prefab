@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 3420134093983776917}
   - component: {fileID: 3420134093983776918}
   m_Layer: 12
-  m_Name: Flying_Static
+  m_Name: Flying
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

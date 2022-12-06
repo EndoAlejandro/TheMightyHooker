@@ -58,7 +58,10 @@ namespace PlayerComponents
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.gravityScale = 0f;
             spriteRenderer.enabled = false;
-            StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, LevelsManager.LoseLevel));
+            StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, () =>
+            {
+                //LevelsManager.LoseLevel();
+            }));
         }
 
         private void OnLanding()
