@@ -427,6 +427,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 0
       dummyAlignment: 0
       m_AllTileFlags: 1073741826
+  - first: {x: 14, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 3
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
   - first: {x: -3, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -495,7 +505,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 3d71896b07b9889439606562e3c4d4be, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: e6e2bc1970b365b418d59e21fbd03c39, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 33511ddb631d64a4ea41dcdf2b0072a3, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5c215a385e50c744988e486a1c31ad1c, type: 2}
@@ -512,7 +522,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: -1070089235, guid: 77ff09cbc456a4c7682d880102d96cd4, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: b5628650d6ac5464abcdd066c8446caf, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 221e4b68a95ca4e4e8a2cb766f33daa7, type: 3}
@@ -523,7 +533,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 1146106366, guid: 5fc33c6ba69eb1245b54927303306524, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 15
+  - m_RefCount: 16
     m_Data:
       e00: 1
       e01: 0
@@ -542,7 +552,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 15
+  - m_RefCount: 16
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray:
   - m_RefCount: 6
@@ -551,7 +561,7 @@ Tilemap:
     m_Data: {fileID: 578464856096304591, guid: 91fee41d91671b04a82185051294f53f, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 448996431404951947, guid: 2475518d8e7fedc4f823969d860b8409, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 3
     m_Data: {fileID: 3529202679923079156, guid: 03cca09e230d6884fa87de31a46b5166, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 5686404609570652862, guid: 1f5c69e5b462ae845a7bd71d6ffcf5c2, type: 3}
@@ -4220,4 +4230,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpawnPoint: {fileID: 7727765476801126971}
-  musicClip: {fileID: 8300000, guid: bef0cef2ded0f0645ad90c6e5bdd4965, type: 3}
+  musicClip: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
