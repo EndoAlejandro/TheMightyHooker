@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1354981889, guid: 2739108c49f9a4ecf84fac4e1d8857ec, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.694664, b: 0.3915094, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,11 +131,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69925baddaf840189fa1b829cd42ae03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unActiveSprite: {fileID: -1198600264, guid: 2739108c49f9a4ecf84fac4e1d8857ec, type: 3}
+  turnOffAfterTime: 1
   activationDelay: 1
   deActivationDelay: 2
+  unActiveSprite: {fileID: -1198600264, guid: 2739108c49f9a4ecf84fac4e1d8857ec, type: 3}
   shakeMagnitude: 0.02
-  turnOffAfterTime: 1
 --- !u!61 &6480913870680307751
 BoxCollider2D:
   m_ObjectHideFlags: 0

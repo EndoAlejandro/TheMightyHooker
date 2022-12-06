@@ -50,7 +50,6 @@ namespace Hazards
             var projectile = projectilePrefab.Get<Projectile>(barrel.position, Quaternion.identity);
             projectile.Initialize(direction, projectileSpeed);
             ResetShootingTimer();
-            Debug.Log("Shoot!");
         }
 
         private void ResetShootingTimer() => currentShootingTime = shootingRate;
