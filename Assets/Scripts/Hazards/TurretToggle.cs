@@ -1,11 +1,16 @@
 ﻿using Interfaces;
+using UnityEngine;
 
 namespace Hazards
 {
     public class TurretToggle : Turret, IToggleChild
     {
+        [SerializeField] private bool onlyShootAtToggle;
+
         public IToggle Toggle { get; private set; }
         public bool State { get; private set; }
+
+        private bool canShoot;
 
         protected override void Awake()
         {
@@ -19,7 +24,18 @@ namespace Hazards
             Toggle.OnToggle += OnToggle;
         }
 
-        public void OnToggle(bool value) => Shoot();
+        protected override void Update()
+        {
+            if (onlyShootAtToggle) return;
+            base.Update();
+            if (canShoot && currentShootingTime < 0) Shoot();
+        }
+
+        public void OnToggle(bool value)
+        {
+            if (onlyShootAtToggle) Shoot();
+            else canShoot = value;
+        }
 
         private void OnDestroy()
         {

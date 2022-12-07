@@ -83,6 +83,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 824864552613490291, guid: 70b2761b585e09d44aa76ec473b97e65, type: 3}
   shootingRate: 1.5
   projectileSpeed: 7
+  onlyShootAtToggle: 1
 --- !u!212 &6121341069015675583
 SpriteRenderer:
   m_ObjectHideFlags: 0

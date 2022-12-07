@@ -6,7 +6,7 @@ namespace Hazards
 {
     public class SpikesToggle : Spikes, IToggleChild
     {
-        [SerializeField] private bool initialState;
+        [SerializeField] private bool invertValue;
         [SerializeField] private Sprite unActiveSprite;
 
         public IToggle Toggle { get; private set; }
@@ -23,15 +23,11 @@ namespace Hazards
             activeSprite = renderer.sprite;
         }
 
-        private void Start()
-        {
-            OnToggle(initialState);
-            Toggle.OnToggle += OnToggle;
-        }
+        private void Start() => Toggle.OnToggle += OnToggle;
 
         public void OnToggle(bool value)
         {
-            State = value;
+            State = invertValue ? !value : value;
             renderer.sprite = State ? activeSprite : unActiveSprite;
         }
 

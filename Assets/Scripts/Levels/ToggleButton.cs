@@ -19,8 +19,11 @@ namespace Levels
         [SerializeField] private Sprite unActiveSprite;
         [SerializeField] private AudioClip clip;
 
+        private ToggleButtonRuler ruler;
+
         private new SpriteRenderer renderer;
         private AudioSource audioSource;
+        private ToggleButtonRuler.ButtonType buttonType = ToggleButtonRuler.ButtonType.None;
 
         private bool isPressed;
 
@@ -38,14 +41,35 @@ namespace Levels
             SetState(initialState, false);
         }
 
+        public void SetRuler(ToggleButtonRuler ruler, ToggleButtonRuler.ButtonType buttonType)
+        {
+            this.ruler = ruler;
+            this.buttonType = buttonType;
+            turnOffAfterTime = false;
+        }
+
         private void SetState(bool state, bool playAudio = true)
         {
+            if (buttonType != ToggleButtonRuler.ButtonType.None)
+            {
+                ruler.Toggle(state, buttonType);
+                return;
+            }
+
             isPressed = state;
             renderer.sprite = isPressed ? activeSprite : unActiveSprite;
             OnToggle?.Invoke(isPressed);
             if (playAudio) audioSource.Play();
 
             if (isPressed && turnOffAfterTime) StartCoroutine(TurnOffAfterDelay());
+        }
+
+        public void SetStateFromParent(bool state)
+        {
+            isPressed = state;
+            renderer.sprite = isPressed ? activeSprite : unActiveSprite;
+            OnToggle?.Invoke(isPressed);
+            audioSource.Play();
         }
 
         private IEnumerator TurnOffAfterDelay()
