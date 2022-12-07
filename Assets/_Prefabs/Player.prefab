@@ -483,11 +483,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 16513
   wallCheckRadius: 0.1
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 12417
+    m_Bits: 24705
   checkDistance: 0.05
 --- !u!114 &9156122726420407112
 MonoBehaviour:

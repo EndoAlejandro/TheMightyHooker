@@ -65,18 +65,19 @@ namespace PlayerComponents
             if (GameManager.IsPaused) return;
             if (!Input.Hook || !(hookTime <= 0f) || Player.IsHooking) return;
 
-            var socketInRange = SelectHookInRange();
+            var socketInRange = SelectSocketInRange();
 
             if (socketInRange == null)
                 MissedHook();
             else
-                StartCoroutine(HookPulling(socketInRange.transform.position));
+                StartCoroutine(HookPulling(socketInRange));
         }
 
         private void MissedHook() => hookTime = hookRate;
 
-        private IEnumerator HookPulling(Vector3 target)
+        private IEnumerator HookPulling(HookSocket socket)
         {
+            var target = socket.transform.position;
             Player.Hooking(true);
             Rigidbody.gravityScale = 0f;
             Rigidbody.velocity = Vector2.zero;
@@ -87,7 +88,7 @@ namespace PlayerComponents
             var currentDistance = lastDistance;
             var direction = (target - transform.position).normalized;
 
-            while (currentDistance <= lastDistance && Input.Hook)
+            while (currentDistance <= lastDistance && Input.Hook && socket.State)
             {
                 lineRenderer.SetPosition(0, lineRenderer.transform.position);
                 Rigidbody.velocity = direction * hookSpeed;
@@ -103,7 +104,7 @@ namespace PlayerComponents
             Rigidbody.velocity = Rigidbody.velocity.normalized * hookResidualSpeed;
         }
 
-        private HookSocket SelectHookInRange()
+        private HookSocket SelectSocketInRange()
         {
             var results = Physics2D.OverlapCircleNonAlloc(Player.HookAnchor.position, detectionRange, collisions);
 
@@ -113,6 +114,7 @@ namespace PlayerComponents
             for (int i = 0; i < results; i++)
             {
                 if (!collisions[i].TryGetComponent(out HookSocket socket)) continue;
+                if (!socket.State) continue;
 
                 var position = transform.position;
                 var hookDirection = GetHookDirection();

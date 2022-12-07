@@ -26,7 +26,7 @@ namespace PlayerComponents
         public bool IsSliding { get; set; }
         public bool IsHooking { get; set; }
 
-        private Rigidbody2D rigidbody;
+        private new Rigidbody2D rigidbody;
 
         private void Awake()
         {

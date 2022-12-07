@@ -1,71 +1,44 @@
-using PlayerComponents;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hazards
 {
-    public class Turret : MonoBehaviour
+    public abstract class Turret : MonoBehaviour
     {
-        [SerializeField] private Transform aimLimit;
-        [SerializeField] private Transform barrel;
+        [Header("Children")] [SerializeField] protected Transform barrel;
+        [SerializeField] protected Projectile projectilePrefab;
 
-        [SerializeField] private Projectile projectilePrefab;
-
-        [SerializeField] private float shootingRate = 1.5f;
+        [Header("Shooting")] [SerializeField] private float shootingRate = 1.5f;
         [SerializeField] private float projectileSpeed = 7f;
 
-        [SerializeField] private LayerMask detectionLayerMask;
-
-        private Vector3 origin = Vector3.zero;
-        private Vector3 direction;
-
         private new SpriteRenderer renderer;
-        private new Collider2D collider;
 
-        private float currentShootingTime;
+        protected Vector3 direction;
+        protected float currentShootingTime;
 
-        private void Awake()
-        {
-            renderer = GetComponent<SpriteRenderer>();
-            collider = GetComponent<Collider2D>();
-        }
+        protected virtual void Awake() => renderer = GetComponent<SpriteRenderer>();
 
-        private void Start()
+        protected virtual void Start()
         {
             ResetShootingTimer();
-            CalculateOrigin();
+            SetDirection();
         }
 
-        private void Update() => currentShootingTime -= Time.deltaTime;
-
-        private void FixedUpdate()
+        protected virtual void SetDirection()
         {
-            if (currentShootingTime > 0) return;
-            var result = Physics2D.Linecast(transform.position + direction, aimLimit.position, detectionLayerMask);
-            if (result)
-                Shoot();
+            var x = renderer.flipX ? -1 : 1;
+            direction = new Vector2(x, 0f);
         }
 
-        private void Shoot()
+        protected virtual void Update() => currentShootingTime -= Time.deltaTime;
+        
+        private void ResetShootingTimer() => currentShootingTime = shootingRate;
+
+        protected void Shoot()
         {
+            Debug.Log("Shoot");
             var projectile = projectilePrefab.Get<Projectile>(barrel.position, Quaternion.identity);
             projectile.Initialize(direction, projectileSpeed);
             ResetShootingTimer();
-        }
-
-        private void ResetShootingTimer() => currentShootingTime = shootingRate;
-
-        private void CalculateOrigin()
-        {
-            var x = renderer.flipX ? collider.bounds.min.x : collider.bounds.max.x;
-            direction = new Vector2(-x, 0f).normalized;
-            origin = new Vector2(x, collider.bounds.center.y);
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (aimLimit == null) return;
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, aimLimit.position);
         }
     }
 }

@@ -19,8 +19,8 @@ TagManager:
   - Hazard
   - Enemy
   - OneWayPlatform
-  - 
-  - 
+  - Button
+  - EnemyProjectile
   - 
   - 
   - 
