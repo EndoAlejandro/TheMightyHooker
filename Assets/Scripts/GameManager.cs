@@ -58,7 +58,7 @@ public class GameManager : Singleton<GameManager>
     {
         CurrentLevel = 0;
         CurrentSubLevel = 0;
-        SceneManager.LoadSceneAsync("_Scenes/GameOverMenu");
+        StartCoroutine(LoadEndGameSceneAsync());
     }
 
     public void ReturnToMainMenu()
@@ -67,16 +67,33 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(GoToMainMenu());
     }
 
-    public void LoadGameScene() => StartCoroutine(LoadGameSceneAsync());
+    public void LoadGameScene()
+    {
+        StartCoroutine(LoadGameSceneAsync());
+    }
+
+    private IEnumerator LoadEndGameSceneAsync()
+    {
+        yield return LoadingTransition();
+        yield return SceneManager.LoadSceneAsync("_Scenes/GameOverMenu");
+    }
 
     private IEnumerator LoadGameSceneAsync()
     {
+        yield return LoadingTransition();
         yield return SceneManager.LoadSceneAsync("_Scenes/MainGame");
         yield return SceneManager.LoadSceneAsync("_Scenes/GameMenu", LoadSceneMode.Additive);
     }
 
+    private IEnumerator LoadingTransition()
+    {
+        yield return SceneManager.LoadSceneAsync("_Scenes/LoadingScene");
+        yield return new WaitForSeconds(1f);
+    }
+
     private IEnumerator GoToMainMenu()
     {
+        yield return LoadingTransition();
         yield return SceneManager.LoadSceneAsync("_Scenes/MainMenu");
         SoundManager.Instance.PlayMainMenu();
     }

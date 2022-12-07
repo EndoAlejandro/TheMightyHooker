@@ -1,7 +1,6 @@
 using System.Collections;
 using CustomUtils;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SoundManager : Singleton<SoundManager>
 {

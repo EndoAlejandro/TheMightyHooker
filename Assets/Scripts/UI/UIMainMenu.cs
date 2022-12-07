@@ -6,7 +6,8 @@ namespace UI
     {
         private void Awake()
         {
-            if(GameManager.Instance == null) GameManager.CreateGameManager();
+            if (GameManager.Instance == null)
+                GameManager.CreateGameManager();
         }
 
         public void Play() => GameManager.Instance.LoadGameScene();
