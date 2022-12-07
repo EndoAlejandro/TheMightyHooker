@@ -242,6 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9156122726233624745}
+  - component: {fileID: 5495026036418046794}
   - component: {fileID: 9156122726233624744}
   m_Layer: 3
   m_Name: Hook
@@ -266,6 +267,82 @@ Transform:
   m_Father: {fileID: 9156122726420407125}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.13}
+--- !u!114 &5495026036418046794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156122726233624746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2d6a0d9fc74e9d8758dc766b5eec5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  precision: 10
+  straightenLineSpeed: 10
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.5173807
+      outSlope: 2.5173807
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06070721
+    - serializedVersion: 3
+      time: 0.13009386
+      value: 0.992568
+      inSlope: -0.061107032
+      outSlope: -0.061107032
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2680258
+    - serializedVersion: 3
+      time: 0.3015688
+      value: -0.5033872
+      inSlope: -0.034491148
+      outSlope: -0.034491148
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5000113
+      value: 0.48879957
+      inSlope: -0.004557513
+      outSlope: -0.004557513
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.14314711
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.796953
+      value: -0.09278309
+      inSlope: 0.057731047
+      outSlope: 0.057731047
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.31475183
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.35869902
+      outSlope: -0.35869902
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.22841644
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startWaveSize: 1.3
+  ropeProgressionSpeed: 39.3
 --- !u!120 &9156122726233624744
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -273,7 +350,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9156122726233624746}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -317,37 +394,55 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.17847872
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        time: 0
+        value: 0.5
+        inSlope: 0.0000010168375
+        outSlope: 0.0000010168375
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.17585301
+      - serializedVersion: 3
+        time: 0.49475098
+        value: 0.37939453
+        inSlope: -0.16159934
+        outSlope: -0.16159934
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.25194758
+      - serializedVersion: 3
+        time: 1
+        value: 0.2999975
+        inSlope: 0.032958634
+        outSlope: 0.032958634
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.3569554
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.65787435, b: 0, a: 0}
-      key1: {r: 1, g: 0.65787435, b: 0, a: 1}
-      key2: {r: 1, g: 0.65787435, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.47450984, b: 0.18823531, a: 1}
+      key1: {r: 0.9056604, g: 0.6119532, b: 0, a: 1}
+      key2: {r: 1, g: 0.63529414, b: 0, a: 0}
+      key3: {r: 0.9215687, g: 0.82745105, b: 0.1254902, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 65535
-      ctime3: 0
+      ctime1: 25443
+      ctime2: 55127
+      ctime3: 65535
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 14071
+      atime1: 43562
       atime2: 65535
       atime3: 65535
       atime4: 0
@@ -355,10 +450,10 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 90
-    numCapVertices: 90
+      m_NumColorKeys: 4
+      m_NumAlphaKeys: 3
+    numCornerVertices: 0
+    numCapVertices: 0
     alignment: 0
     textureMode: 0
     shadowBias: 0.5

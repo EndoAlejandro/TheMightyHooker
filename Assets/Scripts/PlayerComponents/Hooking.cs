@@ -14,16 +14,20 @@ namespace PlayerComponents
         [SerializeField] private float detectionRange = 7f;
         [SerializeField] private LayerMask layerMask;
 
+        private Vector3 target = Vector3.zero;
+
         private float hookTime;
         private float initialGravity;
 
         private LineRenderer lineRenderer;
+        private HookingDisplay hookingDisplay;
 
         private Collider2D[] collisions;
 
         protected override void Awake()
         {
             base.Awake();
+            hookingDisplay = GetComponentInChildren<HookingDisplay>();
             lineRenderer = GetComponentInChildren<LineRenderer>();
             collisions = new Collider2D[100];
         }
@@ -77,12 +81,11 @@ namespace PlayerComponents
 
         private IEnumerator HookPulling(HookSocket socket)
         {
-            var target = socket.transform.position;
+            target = socket.transform.position;
             Player.Hooking(true);
             Rigidbody.gravityScale = 0f;
             Rigidbody.velocity = Vector2.zero;
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(1, target);
+            hookingDisplay.ActivateRope();
 
             var lastDistance = Vector3.Distance(target, transform.position);
             var currentDistance = lastDistance;
@@ -90,15 +93,16 @@ namespace PlayerComponents
 
             while (currentDistance <= lastDistance && Input.Hook && socket.State)
             {
-                lineRenderer.SetPosition(0, lineRenderer.transform.position);
+                hookingDisplay.DrawRopeWaves(target);
                 Rigidbody.velocity = direction * hookSpeed;
                 lastDistance = currentDistance;
                 yield return new WaitForFixedUpdate();
                 currentDistance = Vector3.Distance(target, transform.position);
             }
 
+            hookingDisplay.StopRope();
+            target = Vector3.zero;
             Player.Hooking(false);
-            lineRenderer.enabled = false;
             hookTime = hookRate;
             Rigidbody.gravityScale = initialGravity;
             Rigidbody.velocity = Rigidbody.velocity.normalized * hookResidualSpeed;
@@ -125,7 +129,6 @@ namespace PlayerComponents
 
                 if (!(angle < toleranceAngle) || !(angle < minAngle)) continue;
                 if (Physics2D.Linecast(Player.HookAnchor.position, socket.transform.position, layerMask)) continue;
-                // if (Physics2D.Raycast(Player.HookAnchor.position, socketDirection, distance, layerMask)) continue;
 
                 closestSocket = socket;
                 minAngle = angle;
