@@ -18,7 +18,6 @@ namespace Hazards
         [SerializeField] private Sprite unActiveSprite;
         [SerializeField] private float shakeMagnitude = 0.2f;
 
-
         private bool isActivating;
         private bool isActive;
 
