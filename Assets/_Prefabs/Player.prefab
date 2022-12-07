@@ -487,7 +487,7 @@ MonoBehaviour:
   wallCheckRadius: 0.1
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 12417
+    m_Bits: 8321
   checkDistance: 0.05
 --- !u!114 &9156122726420407112
 MonoBehaviour:
