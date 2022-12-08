@@ -67,36 +67,47 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(GoToMainMenu());
     }
 
+    public void Options() => StartCoroutine(GoToOptions());
+    
     public void LoadGameScene()
     {
         StartCoroutine(LoadGameSceneAsync());
+    }
+    
+    private IEnumerator GoToOptions()
+    {
+        yield return LoadingTransition();
+        yield return SceneManager.LoadSceneAsync("Options_UI");
+        SoundManager.Instance.PlayMainMenu();
     }
 
     private IEnumerator LoadEndGameSceneAsync()
     {
         yield return LoadingTransition();
-        yield return SceneManager.LoadSceneAsync("_Scenes/GameOverMenu");
+        yield return SceneManager.LoadSceneAsync("GameOver_UI");
     }
 
     private IEnumerator LoadGameSceneAsync()
     {
         yield return LoadingTransition();
-        yield return SceneManager.LoadSceneAsync("_Scenes/MainGame");
-        yield return SceneManager.LoadSceneAsync("_Scenes/GameMenu", LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync("Main");
+        yield return SceneManager.LoadSceneAsync("Pause_UI", LoadSceneMode.Additive);
     }
 
     private IEnumerator LoadingTransition()
     {
-        yield return SceneManager.LoadSceneAsync("_Scenes/LoadingScene");
+        yield return SceneManager.LoadSceneAsync("Loading");
         yield return new WaitForSeconds(1f);
     }
 
     private IEnumerator GoToMainMenu()
     {
         yield return LoadingTransition();
-        yield return SceneManager.LoadSceneAsync("_Scenes/MainMenu");
+        yield return SceneManager.LoadSceneAsync("Title_UI");
         SoundManager.Instance.PlayMainMenu();
     }
 
     public void LoseLevel() => LoadGameScene();
+
+    
 }

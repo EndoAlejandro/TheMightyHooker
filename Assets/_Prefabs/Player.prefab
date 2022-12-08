@@ -641,6 +641,7 @@ MonoBehaviour:
   hookClip: {fileID: 8300000, guid: 328763bc966b64b91bd57907bd828b53, type: 3}
   deathClip: {fileID: 8300000, guid: a6c21e434b8764995bc7b5b421e2dd6d, type: 3}
   shootClip: {fileID: 8300000, guid: 3388f6aa980504427a8fdde39a29bda5, type: 3}
+  slimeClip: {fileID: 8300000, guid: f0ed74448479d402dbd69f782db2c8bb, type: 3}
 --- !u!114 &9156122726420407121
 MonoBehaviour:
   m_ObjectHideFlags: 0
