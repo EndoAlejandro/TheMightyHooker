@@ -27,7 +27,8 @@ namespace Levels
             audioSource.loop = false;
             
             ResetTimer();
-            state = initialState;
+            state = !initialState;
+            Toggle();
         }
 
         private void Update()

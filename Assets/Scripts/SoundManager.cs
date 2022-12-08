@@ -13,6 +13,8 @@ public class SoundManager : Singleton<SoundManager>
     private AudioClip mainMenuClip;
 
     [SerializeField] private AudioClip pickUpClip;
+    [SerializeField] private AudioClip uiNavigate;
+    [SerializeField] private AudioClip uiSubmit;
 
     protected override void Awake()
     {
@@ -21,6 +23,8 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     public void PlayPickUp() => PlayFx(pickUpClip);
+    public void PlayNavigate() => PlayFx(uiNavigate);
+    public void PlaySubmit() => PlayFx(uiSubmit);
     public void PlayMainMenu() => PlayMusic(mainMenuClip);
 
     public void PlayMusic(AudioClip clip)
@@ -35,24 +39,9 @@ public class SoundManager : Singleton<SoundManager>
         musicAudioSource.Play();
     }
 
-    public void PlayFx(AudioClip clip)
+    private void PlayFx(AudioClip clip)
     {
         fxAudioSource.pitch = 1f;
         fxAudioSource.PlayOneShot(clip);
-    }
-
-    public void PlayFx(AudioClip clip, float pitch)
-    {
-        fxAudioSource.Stop();
-        fxAudioSource.pitch = pitch;
-        fxAudioSource.PlayOneShot(clip);
-        var duration = (1 - pitch) * 2 * clip.length;
-        StartCoroutine(PlayWithPitch(duration));
-    }
-
-    private IEnumerator PlayWithPitch(float duration)
-    {
-        yield return new WaitForSecondsRealtime(duration);
-        fxAudioSource.pitch = 1f;
     }
 }

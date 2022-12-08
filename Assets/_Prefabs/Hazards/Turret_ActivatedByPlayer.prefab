@@ -111,11 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9624f078c89106743ab15d91caeeeac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimLimit: {fileID: 6794212544375961571}
   barrel: {fileID: 6804162371546589559}
   projectilePrefab: {fileID: 824864552613490291, guid: 70b2761b585e09d44aa76ec473b97e65, type: 3}
   shootingRate: 1.5
   projectileSpeed: 7
+  aimLimit: {fileID: 6794212544375961571}
   detectionLayerMask:
     serializedVersion: 2
     m_Bits: 8

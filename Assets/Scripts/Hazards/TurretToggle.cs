@@ -6,6 +6,7 @@ namespace Hazards
     public class TurretToggle : Turret, IToggleChild
     {
         [SerializeField] private bool onlyShootAtToggle;
+        [SerializeField] private bool invertValue;
 
         public IToggle Toggle { get; private set; }
         public bool State { get; private set; }
@@ -34,7 +35,7 @@ namespace Hazards
         public void OnToggle(bool value)
         {
             if (onlyShootAtToggle) Shoot();
-            else canShoot = value;
+            else canShoot = invertValue ? !value : value;
         }
 
         private void OnDestroy()
