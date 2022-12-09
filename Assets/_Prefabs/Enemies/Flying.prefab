@@ -226,7 +226,6 @@ MonoBehaviour:
   canDie: 0
   movementType: 0
   speed: 2
-  body: {fileID: 3420134092887937271}
   collisionDetectionRange: 0.1
   collisionLayerMask:
     serializedVersion: 2
