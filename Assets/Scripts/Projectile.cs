@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Projectile : PooledMonoBehaviour
 {
+    [SerializeField] private PoolAfterSeconds collisionFxPrefab;
+
     private new Rigidbody2D rigidbody;
     private void Awake() => rigidbody = GetComponent<Rigidbody2D>();
 
@@ -22,14 +24,15 @@ public class Projectile : PooledMonoBehaviour
         t.right = direction;
         rigidbody.velocity = t.right * speed;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.TryGetComponent(out IDie die)) die.Die();
         StopAllCoroutines();
+        collisionFxPrefab.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
         ReturnToPool();
     }
-    
+
     private IEnumerator LifeTimeCountDown(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);

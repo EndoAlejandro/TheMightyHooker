@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolSize: 10
+  collisionFxPrefab: {fileID: 9007964976994995162, guid: f417bd88f08a15b48874205c58570c03, type: 3}
 --- !u!95 &7881777511872294095
 Animator:
   serializedVersion: 4
