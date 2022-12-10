@@ -11,10 +11,7 @@ namespace Levels
         [SerializeField] private AudioClip musicClip;
 
         private PickUp[] gems;
-        private Spikes[] spikesArray;
         private Door door;
-
-        // private AudioSource audioSource;
 
         private int gemsCount;
 
@@ -24,9 +21,7 @@ namespace Levels
         private void Awake()
         {
             gems = GetComponentsInChildren<PickUp>();
-            spikesArray = GetComponentsInChildren<Spikes>();
             door = GetComponentInChildren<Door>();
-            // audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -44,14 +39,17 @@ namespace Levels
         private void SetupLevelComponents()
         {
             foreach (var gem in gems) gem.Setup(this);
-            door.Setup(this);
         }
 
         public void PickUpGem()
         {
-            SoundManager.Instance.PlayPickUp();
             gemsCount++;
-            if (gemsCount >= gems.Length) door.TurnOn();
+            SoundManager.Instance.PlayPickUp();
+            
+            if (gemsCount < gems.Length) return;
+            
+            door.TurnOn();
+            SoundManager.Instance.PlayOpenDoor();
         }
     }
 }

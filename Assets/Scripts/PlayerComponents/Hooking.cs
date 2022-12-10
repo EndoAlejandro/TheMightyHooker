@@ -71,13 +71,9 @@ namespace PlayerComponents
 
             var socketInRange = SelectSocketInRange();
 
-            if (socketInRange == null)
-                MissedHook();
-            else
+            if (socketInRange != null)
                 StartCoroutine(HookPulling(socketInRange));
         }
-
-        private void MissedHook() => hookTime = hookRate;
 
         private IEnumerator HookPulling(HookSocket socket)
         {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 75922019}
   - component: {fileID: 75922020}
   m_Layer: 0
-  m_Name: UI
+  m_Name: OpenDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 75922018}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -5311543289638046830, guid: 370543978891fd04294452ffae8814a4, type: 2}
+  OutputAudioMixerGroup: {fileID: -6977316831967947174, guid: 370543978891fd04294452ffae8814a4, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -177,9 +177,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicAudioSource: {fileID: 8941871187688628925}
   fxAudioSource: {fileID: 8941871187458615207}
-  uiAudioSource: {fileID: 75922020}
+  openDoorAudioSource: {fileID: 75922020}
   mainMenuClip: {fileID: 8300000, guid: 992a4e4ce5cf8402fa6b371442dcfae5, type: 3}
   pickUpClip: {fileID: 8300000, guid: f3379d7c990fe4e6b9215fd0a4c19103, type: 3}
+  openDoorClip: {fileID: 8300000, guid: 7a6922112cbd94cb4a54b8b259ee8389, type: 3}
   uiNavigate: {fileID: 8300000, guid: c901e75905dc340199e0518328c4c263, type: 3}
   uiSubmit: {fileID: 8300000, guid: 2336b56480de844139e21b62697ccfc7, type: 3}
 --- !u!1 &8941871187458615201

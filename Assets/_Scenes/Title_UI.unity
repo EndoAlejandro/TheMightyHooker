@@ -2636,6 +2636,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8941871187439331156, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
+      propertyPath: fXGroup
+      value: 
+      objectReference: {fileID: 2364286280145901890, guid: 370543978891fd04294452ffae8814a4, type: 2}
+    - target: {fileID: 8941871187439331156, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
+      propertyPath: musicGroup
+      value: 
+      objectReference: {fileID: -3301238872646733458, guid: 370543978891fd04294452ffae8814a4, type: 2}
+    - target: {fileID: 8941871187439331156, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
+      propertyPath: masterGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 370543978891fd04294452ffae8814a4, type: 2}
     - target: {fileID: 8941871187439331157, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
       propertyPath: m_RootOrder
       value: 3

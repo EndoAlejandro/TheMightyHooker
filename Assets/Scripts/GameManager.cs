@@ -51,7 +51,7 @@ public class GameManager : Singleton<GameManager>
             currentProgress.x++;
             currentProgress.y = 0;
         }
-
+        SaveProgress();
         LoadContinueGame();
     }
 

@@ -15,7 +15,7 @@ namespace UI
 
         private RectTransform[] sliderBars;
 
-        private string mixerName;
+        //private string mixerName;
         public float Volume { get; private set; }
 
         private float activeHeight;
@@ -26,19 +26,16 @@ namespace UI
             FillSliderBars();
             activeHeight = sliderBars[0].sizeDelta.y;
             unActiveHeight = sliderBars[0].sizeDelta.x;
-            mixerName = audioMixer.name + "Volume";
+            //mixerName = audioMixer.name + "Volume";
         }
 
         public void SetInitialVolume(float value)
         {
             if (value < 0)
-                audioMixer.audioMixer.GetFloat(mixerName, out value);
+                audioMixer.audioMixer.GetFloat(audioMixer.name + "Volume", out value);
             Volume = Mathf.Min(value, 10f);
             SetAudioVolume();
         }
-
-        // private float FromLogToNormalized(float value) => Mathf.Pow(10, value / 20) * 10;
-        private float FromNormalizedToLog(float value) => Mathf.Log10(value / 10) * 20;
 
         private void FillSliderBars()
         {
@@ -69,7 +66,8 @@ namespace UI
 
         private void SetAudioVolume()
         {
-            audioMixer.audioMixer.SetFloat(mixerName, FromNormalizedToLog(Volume));
+            SoundManager.SetMixerGroupVolume(audioMixer, Volume);
+            //audioMixer.audioMixer.SetFloat(mixerName, SoundManager.FromNormalizedToLog(Volume));
             UpdateSlider();
         }
 
