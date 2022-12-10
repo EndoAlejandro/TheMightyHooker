@@ -1,3 +1,4 @@
+using System;
 using CustomUtils;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -29,12 +30,15 @@ public class SoundManager : Singleton<SoundManager>
         base.Awake();
         DontDestroyOnLoad(this);
 
+        if (GameManager.Instance == null)
+            GameManager.CreateGameManager();
+    }
+
+    private void Start()
+    {
         SetMixerGroupVolume(masterGroup, SaveSystem.GetVolume(SaveSystem.PrefsField.Master));
         SetMixerGroupVolume(musicGroup, SaveSystem.GetVolume(SaveSystem.PrefsField.Music));
         SetMixerGroupVolume(fXGroup, SaveSystem.GetVolume(SaveSystem.PrefsField.Fx));
-
-        if (GameManager.Instance == null)
-            GameManager.CreateGameManager();
     }
 
     public void PlayPickUp() => PlayFx(pickUpClip);
