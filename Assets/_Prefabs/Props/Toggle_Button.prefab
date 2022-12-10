@@ -54,7 +54,7 @@ MonoBehaviour:
   deActivationDelay: 2
   activeSprite: {fileID: 1100947179, guid: 6f587194ac2a7b243b44344c69cde1a7, type: 3}
   unActiveSprite: {fileID: -1124944697, guid: 6f587194ac2a7b243b44344c69cde1a7, type: 3}
-  clip: {fileID: 8300000, guid: 7a6922112cbd94cb4a54b8b259ee8389, type: 3}
+  clip: {fileID: 8300000, guid: 5cf19f591509c4d4c94c61c952f436c5, type: 3}
 --- !u!212 &7041672679146916680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 2.5
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0

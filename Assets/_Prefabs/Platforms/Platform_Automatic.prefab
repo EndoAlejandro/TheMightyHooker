@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 6249059024568511360}
   - component: {fileID: 6249059024568511361}
   m_Layer: 0
-  m_Name: Platform_Moving
+  m_Name: Platform_Automatic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,9 +286,9 @@ MonoBehaviour:
   body: {fileID: 6249059023460951786}
   startPoint: {fileID: 6249059024526482992}
   endPoint: {fileID: 6249059022779358327}
+  normalTolerance: 0.25
   speed: 5
   stillTime: 1
-  normalTolerance: 0.25
 --- !u!50 &6249059024568511360
 Rigidbody2D:
   serializedVersion: 4
@@ -319,7 +319,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 6249059024568511389}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: efc5b2e186c794b4389cdeda0278c59c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

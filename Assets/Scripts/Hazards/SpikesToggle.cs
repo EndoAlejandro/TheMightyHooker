@@ -20,10 +20,9 @@ namespace Hazards
             renderer = GetComponentInChildren<SpriteRenderer>();
             Toggle = GetComponentInParent<IToggle>();
 
+            Toggle.OnToggle += OnToggle;
             activeSprite = renderer.sprite;
         }
-
-        private void Start() => Toggle.OnToggle += OnToggle;
 
         public void OnToggle(bool value)
         {

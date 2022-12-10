@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggleTime: 2.5
   initialState: 0
-  clip: {fileID: 8300000, guid: 14b2a6d6eae49f5499458a296ab1166d, type: 3}
+  clip: {fileID: 8300000, guid: 5cf19f591509c4d4c94c61c952f436c5, type: 3}
 --- !u!82 &7889256852955651179
 AudioSource:
   m_ObjectHideFlags: 0
@@ -61,8 +61,8 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 2.5
-  Loop: 1
+  m_Pitch: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
