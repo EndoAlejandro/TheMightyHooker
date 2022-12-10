@@ -49,10 +49,12 @@ namespace Enemies
         {
             IsStunned = state;
             OnStun?.Invoke(state);
-            StartCoroutine(StunTimer());
             collider.enabled = !state;
             if (state)
+            {
                 Rigidbody.Sleep();
+                StartCoroutine(StunTimer());
+            }
             else
                 Rigidbody.IsAwake();
         }

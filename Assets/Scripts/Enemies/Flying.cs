@@ -72,7 +72,11 @@ namespace Enemies
             Movement();
         }
 
-        private void Update() => CheckCardinalPoints();
+        private void Update()
+        {
+            if (IsStunned) return;
+            CheckCardinalPoints();
+        }
 
         private void CheckCardinalPoints()
         {

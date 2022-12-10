@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathClip: {fileID: 8300000, guid: a6c21e434b8764995bc7b5b421e2dd6d, type: 3}
+  stunEndClip: {fileID: 8300000, guid: 3dd01ee3023eb440ba1e3ddf72973e61, type: 3}
 --- !u!50 &3420134093983776917
 Rigidbody2D:
   serializedVersion: 4

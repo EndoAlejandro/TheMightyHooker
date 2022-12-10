@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class UISlider : MonoBehaviour
+    public class UIVolumeSlider : MonoBehaviour
     {
         [SerializeField] private AudioMixerGroup audioMixer;
         [SerializeField] private Transform sliderBarsContainer;
@@ -16,7 +16,7 @@ namespace UI
         private RectTransform[] sliderBars;
 
         private string mixerName;
-        private float volume;
+        public float Volume { get; private set; }
 
         private float activeHeight;
         private float unActiveHeight;
@@ -24,21 +24,20 @@ namespace UI
         private void Awake()
         {
             FillSliderBars();
-
-            mixerName = audioMixer.name + "Volume";
-            audioMixer.audioMixer.GetFloat(mixerName, out var value);
-            volume = FromLogToNormalized(value);
-        }
-
-        private void Start()
-        {
             activeHeight = sliderBars[0].sizeDelta.y;
             unActiveHeight = sliderBars[0].sizeDelta.x;
-
-            UpdateSlider();
+            mixerName = audioMixer.name + "Volume";
         }
 
-        private float FromLogToNormalized(float value) => Mathf.Pow(10, value / 20) * 10;
+        public void SetInitialVolume(float value)
+        {
+            if (value < 0)
+                audioMixer.audioMixer.GetFloat(mixerName, out value);
+            Volume = Mathf.Min(value, 10f);
+            SetAudioVolume();
+        }
+
+        // private float FromLogToNormalized(float value) => Mathf.Pow(10, value / 20) * 10;
         private float FromNormalizedToLog(float value) => Mathf.Log10(value / 10) * 20;
 
         private void FillSliderBars()
@@ -52,33 +51,34 @@ namespace UI
 
         public void IncreaseButtonPressed()
         {
-            volume = Mathf.Min(volume + 1f, 10f);
+            Volume = Mathf.Min(Volume + 1f, 10f);
             SetAudioVolume();
-            UpdateSlider();
         }
 
         public void DecreaseButtonPressed()
         {
-            volume = Mathf.Max(volume - 1f, 0.0001f);
+            Volume = Mathf.Max(Volume - 1f, 0.0001f);
             SetAudioVolume();
-            UpdateSlider();
         }
 
         public void MuteButtonPressed()
         {
-            volume = volume < 1 ? 10 : 0.0001f;
+            Volume = Volume < 1 ? 10 : 0.0001f;
             SetAudioVolume();
+        }
+
+        private void SetAudioVolume()
+        {
+            audioMixer.audioMixer.SetFloat(mixerName, FromNormalizedToLog(Volume));
             UpdateSlider();
         }
 
-        private void SetAudioVolume() => audioMixer.audioMixer.SetFloat(mixerName, FromNormalizedToLog(volume));
-
         private void UpdateSlider()
         {
-            muteButtonImage.sprite = volume < 1 ? mutedImage : unMutedImage;
+            muteButtonImage.sprite = Volume < 1 ? mutedImage : unMutedImage;
             for (int i = 0; i < sliderBars.Length; i++)
                 sliderBars[i].sizeDelta =
-                    new Vector2(unActiveHeight, i + 1 > volume ? unActiveHeight : activeHeight);
+                    new Vector2(unActiveHeight, i + 1 > Volume ? unActiveHeight : activeHeight);
         }
     }
 }

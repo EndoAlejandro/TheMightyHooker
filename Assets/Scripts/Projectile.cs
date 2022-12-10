@@ -29,10 +29,9 @@ public class Projectile : PooledMonoBehaviour
     {
         if (col.TryGetComponent(out IDie die)) die.Die();
         StopAllCoroutines();
-        collisionFxPrefab.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
         ReturnToPool();
     }
-
+    
     private IEnumerator LifeTimeCountDown(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
@@ -41,6 +40,7 @@ public class Projectile : PooledMonoBehaviour
 
     protected override void OnDisable()
     {
+        collisionFxPrefab.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
         rigidbody.velocity = Vector2.zero;
         base.OnDisable();
     }

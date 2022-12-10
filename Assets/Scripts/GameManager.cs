@@ -9,13 +9,14 @@ public class GameManager : Singleton<GameManager>
     public event Action<bool> OnPause;
 
     public static bool IsPaused { get; private set; }
-    public int CurrentLevel { get; private set; }
-    public int CurrentSubLevel { get; private set; }
-
+    private Vector2Int currentProgress;
+    public Vector2Int CurrentProgress => currentProgress;
+    
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(this);
+        currentProgress = SaveSystem.GetProgress();
     }
 
     private void Start() => ReturnToMainMenu();
@@ -44,36 +45,43 @@ public class GameManager : Singleton<GameManager>
 
     public void WinLevel(int maxClusterLevel)
     {
-        CurrentSubLevel++;
-        if (CurrentSubLevel >= maxClusterLevel)
+        currentProgress.y++;
+        if (currentProgress.y >= maxClusterLevel)
         {
-            CurrentLevel++;
-            CurrentSubLevel = 0;
+            currentProgress.x++;
+            currentProgress.y = 0;
         }
 
-        LoadGameScene();
+        LoadContinueGame();
     }
 
     public void WinGame()
     {
-        CurrentLevel = 0;
-        CurrentSubLevel = 0;
+        currentProgress.x = 0;
+        currentProgress.y = 0;
         StartCoroutine(LoadEndGameSceneAsync());
     }
 
     public void ReturnToMainMenu()
     {
+        SaveProgress();
         if (IsPaused) UnPauseGame();
         StartCoroutine(GoToMainMenu());
     }
 
     public void Options() => StartCoroutine(GoToOptions());
-    
-    public void LoadGameScene()
+
+    public void LoadContinueGame() => StartCoroutine(LoadGameSceneAsync());
+
+    public void LoadNewGame()
     {
+        currentProgress = Vector2Int.zero;
+        SaveProgress();
         StartCoroutine(LoadGameSceneAsync());
     }
-    
+
+    private void SaveProgress() => SaveSystem.SetProgress(currentProgress);
+
     private IEnumerator GoToOptions()
     {
         yield return LoadingTransition();
@@ -107,7 +115,5 @@ public class GameManager : Singleton<GameManager>
         SoundManager.Instance.PlayMainMenu();
     }
 
-    public void LoseLevel() => LoadGameScene();
-
-    
+    public void LoseLevel() => LoadContinueGame();
 }

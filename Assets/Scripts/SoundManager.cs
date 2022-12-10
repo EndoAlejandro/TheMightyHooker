@@ -1,4 +1,3 @@
-using System.Collections;
 using CustomUtils;
 using UnityEngine;
 
@@ -20,6 +19,8 @@ public class SoundManager : Singleton<SoundManager>
     {
         base.Awake();
         DontDestroyOnLoad(this);
+        if (GameManager.Instance == null)
+            GameManager.CreateGameManager();
     }
 
     public void PlayPickUp() => PlayFx(pickUpClip);

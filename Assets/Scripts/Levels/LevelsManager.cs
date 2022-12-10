@@ -1,15 +1,12 @@
 using System;
 using PlayerComponents;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Levels
 {
     public class LevelsManager : MonoBehaviour
     {
         [SerializeField] private Player playerPrefab;
-
-        // [SerializeField] private Level[] levels;
         [SerializeField] private LevelCluster[] levelsCluster;
 
         private int currentLevel;
@@ -19,8 +16,8 @@ namespace Levels
 
         private void Start()
         {
-            currentLevel = GameManager.Instance.CurrentLevel;
-            currentSubLevel = GameManager.Instance.CurrentSubLevel;
+            currentLevel = GameManager.Instance.CurrentProgress.x;
+            currentSubLevel = GameManager.Instance.CurrentProgress.y;
 
             if (currentLevel >= levelsCluster.Length)
                 GameManager.Instance.WinGame();
