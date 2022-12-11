@@ -720,7 +720,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.043137256, g: 0.007843138, b: 0.098039225, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2636,18 +2636,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8941871187439331156, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
-      propertyPath: fXGroup
-      value: 
-      objectReference: {fileID: 2364286280145901890, guid: 370543978891fd04294452ffae8814a4, type: 2}
-    - target: {fileID: 8941871187439331156, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
-      propertyPath: musicGroup
-      value: 
-      objectReference: {fileID: -3301238872646733458, guid: 370543978891fd04294452ffae8814a4, type: 2}
-    - target: {fileID: 8941871187439331156, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
-      propertyPath: masterGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 370543978891fd04294452ffae8814a4, type: 2}
     - target: {fileID: 8941871187439331157, guid: fdbde3d1a96863a41a1a87d63957bdb5, type: 3}
       propertyPath: m_RootOrder
       value: 3

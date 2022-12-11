@@ -5,6 +5,6 @@ namespace Pooling
     public class PoolAfterSeconds : PooledMonoBehaviour
     {
         [SerializeField] private float delay;
-        private void OnEnable() => ReturnToPool(delay);
+        protected virtual void OnEnable() => ReturnToPool(delay);
     }
 }

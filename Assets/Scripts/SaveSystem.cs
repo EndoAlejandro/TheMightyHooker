@@ -10,13 +10,13 @@ public static class SaveSystem
         Level,
         SubLevel,
         Time,
-        MaxTime,
+        DeathCount,
     }
 
     public static float GetVolume(PrefsField field)
     {
-        if (field != PrefsField.Fx && field != PrefsField.Music && field != PrefsField.Master) return -1f;
-        if (!PlayerPrefs.HasKey(field.ToString())) return -1;
+        if (field != PrefsField.Fx && field != PrefsField.Music && field != PrefsField.Master) return 10f;
+        if (!PlayerPrefs.HasKey(field.ToString())) return 10;
         return PlayerPrefs.GetFloat(field.ToString());
     }
 
@@ -37,20 +37,24 @@ public static class SaveSystem
 
     public static void SetProgress(Vector2Int progress)
     {
-        if (progress == Vector2Int.zero) return;
         PlayerPrefs.SetInt(PrefsField.Level.ToString(), progress.x);
         PlayerPrefs.SetInt(PrefsField.SubLevel.ToString(), progress.y);
     }
 
-    public static float GetTime() => !PlayerPrefs.HasKey(PrefsField.Time.ToString())
-        ? 0f
-        : PlayerPrefs.GetFloat(PrefsField.Time.ToString());
+    public static PlayerMetrics GetPlayerMetrics()
+    {
+        var time = PlayerPrefs.HasKey(PrefsField.Time.ToString())
+            ? PlayerPrefs.GetFloat(PrefsField.Time.ToString())
+            : 0f;
+        var deathCount = PlayerPrefs.HasKey(PrefsField.DeathCount.ToString())
+            ? PlayerPrefs.GetInt(PrefsField.DeathCount.ToString())
+            : 0;
+        return new PlayerMetrics(time, deathCount);
+    }
 
-    public static void SetTime(float value) => PlayerPrefs.SetFloat(PrefsField.Time.ToString(), value);
-
-    public static float GetMaxTime() => !PlayerPrefs.HasKey(PrefsField.MaxTime.ToString())
-        ? 0f
-        : PlayerPrefs.GetFloat(PrefsField.MaxTime.ToString());
-
-    public static void SetMaxTime(float value) => PlayerPrefs.SetFloat(PrefsField.MaxTime.ToString(), value);
+    public static void SetPlayerMetrics(PlayerMetrics metrics)
+    {
+        PlayerPrefs.SetInt(PrefsField.DeathCount.ToString(), metrics.DeathCount);
+        PlayerPrefs.SetFloat(PrefsField.Time.ToString(), metrics.PlayTime);
+    }
 }

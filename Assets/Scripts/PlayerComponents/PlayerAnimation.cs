@@ -106,6 +106,8 @@ namespace PlayerComponents
 
             Player.OnJump -= OnJump;
             Player.OnLanding -= OnLanding;
+            Player.OnDeath -= OnDeath;
+            Player.OnShooting -= OnShooting;
         }
     }
 }

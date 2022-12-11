@@ -7,11 +7,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     public event Action<bool> OnPause;
+    public event Action<int> OnDeath;
 
-    public static bool IsPaused { get; private set; }
     private Vector2Int currentProgress;
     public Vector2Int CurrentProgress => currentProgress;
-    
+
+    public static bool IsPaused { get; private set; }
+
+    public PlayerMetrics PlayerMetrics { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -19,7 +23,11 @@ public class GameManager : Singleton<GameManager>
         currentProgress = SaveSystem.GetProgress();
     }
 
-    private void Start() => ReturnToMainMenu();
+    private void Start()
+    {
+        PlayerMetrics = SaveSystem.GetPlayerMetrics();
+        ReturnToMainMenu();
+    }
 
     public void PauseGame()
     {
@@ -51,6 +59,7 @@ public class GameManager : Singleton<GameManager>
             currentProgress.x++;
             currentProgress.y = 0;
         }
+
         SaveProgress();
         LoadContinueGame();
     }
@@ -75,12 +84,24 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNewGame()
     {
+        PlayerMetrics = new PlayerMetrics();
         currentProgress = Vector2Int.zero;
         SaveProgress();
         StartCoroutine(LoadGameSceneAsync());
     }
 
-    private void SaveProgress() => SaveSystem.SetProgress(currentProgress);
+    private void SaveProgress()
+    {
+        SaveSystem.SetPlayerMetrics(PlayerMetrics);
+        SaveSystem.SetProgress(currentProgress);
+    }
+
+    public void LoseLevel()
+    {
+        PlayerMetrics.RegisterDeath();
+        OnDeath?.Invoke(PlayerMetrics.DeathCount);
+        LoadContinueGame();
+    }
 
     private IEnumerator GoToOptions()
     {
@@ -98,7 +119,7 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator LoadGameSceneAsync()
     {
         yield return LoadingTransition();
-        yield return SceneManager.LoadSceneAsync("Main");
+        SceneManager.LoadSceneAsync("Main");
         yield return SceneManager.LoadSceneAsync("Pause_UI", LoadSceneMode.Additive);
     }
 
@@ -114,6 +135,26 @@ public class GameManager : Singleton<GameManager>
         yield return SceneManager.LoadSceneAsync("Title_UI");
         SoundManager.Instance.PlayMainMenu();
     }
+}
 
-    public void LoseLevel() => LoadContinueGame();
+public class PlayerMetrics
+{
+    public float PlayTime { get; private set; }
+    public int DeathCount { get; private set; }
+
+    public PlayerMetrics(float playTime, int deathCount)
+    {
+        PlayTime = playTime;
+        DeathCount = deathCount;
+    }
+
+    public PlayerMetrics()
+    {
+        PlayTime = 0f;
+        DeathCount = 0;
+    }
+
+    public void RegisterDeath() => DeathCount++;
+    public void Tick(float time) => PlayTime += time;
+    public string GetTimeWithFormat() => TimeSpan.FromSeconds(PlayTime).ToString("hh':'mm':'ss");
 }

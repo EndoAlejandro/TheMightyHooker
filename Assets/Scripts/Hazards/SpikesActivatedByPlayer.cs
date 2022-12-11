@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using PlayerComponents;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -42,6 +43,13 @@ namespace Hazards
         {
             isActive = state;
             renderer.sprite = isActive ? activeSprite : unActiveSprite;
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!other.TryGetComponent(out Player player)) return;
+            if (isActive)
+                KillPLayer(player);
         }
 
         protected override void OnTriggerEnter2D(Collider2D col)

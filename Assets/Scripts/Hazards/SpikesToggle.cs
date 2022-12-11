@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using PlayerComponents;
 using Pooling;
 using UnityEngine;
@@ -31,6 +32,12 @@ namespace Hazards
             toggleFx.Get<PoolAfterSeconds>(transform.position, transform.rotation);
             State = invertValue ? !value : value;
             renderer.sprite = State ? activeSprite : unActiveSprite;
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!other.TryGetComponent(out Player player)) return;
+            if (State) KillPLayer(player);
         }
 
         protected override void OnTriggerEnter2D(Collider2D col)

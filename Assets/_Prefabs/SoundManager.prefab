@@ -175,6 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfe8347b3f447b459f006be7bd71f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterGroup: {fileID: 24300002, guid: 370543978891fd04294452ffae8814a4, type: 2}
+  musicGroup: {fileID: -3301238872646733458, guid: 370543978891fd04294452ffae8814a4, type: 2}
+  fXGroup: {fileID: 2364286280145901890, guid: 370543978891fd04294452ffae8814a4, type: 2}
   musicAudioSource: {fileID: 8941871187688628925}
   fxAudioSource: {fileID: 8941871187458615207}
   openDoorAudioSource: {fileID: 75922020}

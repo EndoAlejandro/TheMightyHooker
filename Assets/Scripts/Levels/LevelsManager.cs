@@ -32,6 +32,8 @@ namespace Levels
 
         public static void WinLevel() => GameManager.Instance.WinLevel(_maxClusterLevel);
         public static void LoseLevel() => GameManager.Instance.LoseLevel();
+
+        private void Update() => GameManager.Instance.PlayerMetrics.Tick(Time.deltaTime);
     }
 
     [Serializable]

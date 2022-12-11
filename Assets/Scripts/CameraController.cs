@@ -8,7 +8,11 @@ public class CameraController : Singleton<CameraController>
     private Player player;
 
     private Vector3 initialPosition = new Vector3();
-    private void Start() => initialPosition = transform.localPosition;
+    protected override void Awake()
+    {
+        base.Awake();
+        initialPosition = transform.position;
+    }
 
     public void CamShake(Vector2 values) => StartCoroutine(CamShakeSequence(values.x, values.y));
 
@@ -20,13 +24,13 @@ public class CameraController : Singleton<CameraController>
             var x = Random.Range(-1f, 1f) * magnitude;
             var y = Random.Range(-1f, 1f) * magnitude;
 
-            transform.localPosition = new Vector3(x, y, transform.position.z);
+            transform.position = new Vector3(x, y) + initialPosition;
 
             currentTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.localPosition = initialPosition;
+        transform.position = initialPosition;
     }
     
 }

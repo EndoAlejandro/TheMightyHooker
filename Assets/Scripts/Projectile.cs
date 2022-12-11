@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Projectile : PooledMonoBehaviour
 {
-    [SerializeField] private PoolAfterSeconds collisionFxPrefab;
+    [SerializeField] private ShotHitFx collisionFxPrefab;
 
     private new Rigidbody2D rigidbody;
     private void Awake() => rigidbody = GetComponent<Rigidbody2D>();
@@ -29,18 +29,24 @@ public class Projectile : PooledMonoBehaviour
     {
         if (col.TryGetComponent(out IDie die)) die.Die();
         StopAllCoroutines();
-        ReturnToPool();
+        DestroyProjectile();
     }
-    
+
     private IEnumerator LifeTimeCountDown(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
         ReturnToPool();
     }
 
+    private void DestroyProjectile()
+    {
+        var fx = collisionFxPrefab.Get<ShotHitFx>(transform.position, Quaternion.identity);
+        fx.PlayAnimation();
+        ReturnToPool();
+    }
+
     protected override void OnDisable()
     {
-        collisionFxPrefab.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
         rigidbody.velocity = Vector2.zero;
         base.OnDisable();
     }

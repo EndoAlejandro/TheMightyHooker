@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9007964976994995161}
   - component: {fileID: 9007964976994995160}
   - component: {fileID: 9007964976994995143}
-  - component: {fileID: 9007964976994995162}
+  - component: {fileID: 5647865691360534661}
   m_Layer: 0
   m_Name: ShotHit_Fx
   m_TagString: Untagged
@@ -106,7 +106,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9007964976994995162
+--- !u!114 &5647865691360534661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9007964976994995142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d720c45ae88ac8b46838344435137ef5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8612f52b5fd4425dbf7a689b93f35b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolSize: 5
