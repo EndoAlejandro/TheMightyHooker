@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535473d276c7448993b20e7820151919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialState: 0
+  invertValue: 0
+  toggleFx: {fileID: 4819131563802597278, guid: 8a94ef744f759b547a45d37a6c6f76c6, type: 3}
   unActiveSprite: {fileID: -1198600264, guid: 2739108c49f9a4ecf84fac4e1d8857ec, type: 3}
 --- !u!61 &72602136926668111
 BoxCollider2D:

@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using PlayerComponents;
+using Pooling;
 using UnityEngine;
 
 namespace Hazards
@@ -7,6 +8,7 @@ namespace Hazards
     public class SpikesToggle : Spikes, IToggleChild
     {
         [SerializeField] private bool invertValue;
+        [SerializeField] private PoolAfterSeconds toggleFx;
         [SerializeField] private Sprite unActiveSprite;
 
         public IToggle Toggle { get; private set; }
@@ -26,6 +28,7 @@ namespace Hazards
 
         public void OnToggle(bool value)
         {
+            toggleFx.Get<PoolAfterSeconds>(transform.position, transform.rotation);
             State = invertValue ? !value : value;
             renderer.sprite = State ? activeSprite : unActiveSprite;
         }
