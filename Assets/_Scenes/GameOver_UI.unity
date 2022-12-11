@@ -1454,8 +1454,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI.UIMainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1297975249}
+        m_TargetAssemblyTypeName: UI.UIGameOverMenu, Assembly-CSharp
         m_MethodName: GoHome
         m_Mode: 1
         m_Arguments:
