@@ -20,7 +20,6 @@ namespace Hazards
         [SerializeField] private float shakeMagnitude = 0.2f;
 
         private bool isActivating;
-        private bool isActive;
 
         private Vector3 initialPosition;
 
@@ -41,21 +40,21 @@ namespace Hazards
 
         private void SetSpikesState(bool state)
         {
-            isActive = state;
-            renderer.sprite = isActive ? activeSprite : unActiveSprite;
+            IsActive = state;
+            renderer.sprite = IsActive ? activeSprite : unActiveSprite;
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
             if (!other.TryGetComponent(out Player player)) return;
-            if (isActive)
+            if (IsActive)
                 KillPLayer(player);
         }
 
         protected override void OnTriggerEnter2D(Collider2D col)
         {
             if (!col.TryGetComponent(out Player player)) return;
-            if (isActive)
+            if (IsActive)
                 KillPLayer(player);
             else if (!isActivating)
                 StartCoroutine(ActivationCycle());

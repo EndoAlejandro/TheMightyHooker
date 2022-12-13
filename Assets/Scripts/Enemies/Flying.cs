@@ -1,4 +1,5 @@
 ﻿using CustomUtils;
+using Hazards;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -97,7 +98,14 @@ namespace Enemies
             var results =
                 Physics2D.OverlapCircleNonAlloc(checkPoint.position, collisionDetectionRange, collisions,
                     collisionLayerMask);
-            return results > 0;
+
+            var lastResults = results;
+            for (int i = 0; i < results; i++)
+            {
+                if (collisions[i].TryGetComponent(out Spikes spikes))
+                    lastResults += spikes.IsActive ? -1 : 0;
+            }
+            return lastResults > 0;
         }
 
         private void OnDrawGizmos()

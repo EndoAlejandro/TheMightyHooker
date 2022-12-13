@@ -14,6 +14,7 @@ namespace Hazards
 
         public IToggle Toggle { get; private set; }
         public bool State { get; private set; }
+        public override bool IsActive => State;
 
         private new SpriteRenderer renderer;
         private Sprite activeSprite;
