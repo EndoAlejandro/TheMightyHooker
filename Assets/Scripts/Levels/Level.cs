@@ -31,8 +31,7 @@ namespace Levels
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlayMusic(musicClip);
 
-            if (gems.Length > 0)
-                gems[0].transform.parent.GetComponent<TilemapRenderer>().enabled = false;
+            //if (gems.Length > 0) gems[0].transform.parent.GetComponent<TilemapRenderer>().enabled = false;
         }
 
 
@@ -45,9 +44,9 @@ namespace Levels
         {
             gemsCount++;
             SoundManager.Instance.PlayPickUp();
-            
+
             if (gemsCount < gems.Length) return;
-            
+
             door.TurnOn();
             SoundManager.Instance.PlayOpenDoor();
         }

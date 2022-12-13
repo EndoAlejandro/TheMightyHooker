@@ -29,7 +29,13 @@ namespace PlayerComponents
 
         private float maxFallSpeed;
 
-        private void Start() => Player.OnSlimeBlock += OnSlimeBlock;
+        private void Start()
+        {
+            Player.OnSlimeBlock += OnSlimeBlock;
+            Player.OnHooking += OnHooking;
+        }
+
+        private void OnHooking() => isJumping = false;
 
         private void FixedUpdate()
         {
@@ -174,6 +180,7 @@ namespace PlayerComponents
         {
             if (Player == null) return;
             Player.OnSlimeBlock -= OnSlimeBlock;
+            Player.OnHooking -= OnHooking;
         }
     }
 }

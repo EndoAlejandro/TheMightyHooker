@@ -559,7 +559,7 @@ MonoBehaviour:
   hookSpeed: 12
   hookResidualSpeed: 8
   rotationSpeed: 10
-  toleranceAngle: 45
+  toleranceAngle: 30
   detectionRange: 7
   layerMask:
     serializedVersion: 2
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2527951525271410435, guid: 2fb1e282734ac5040bc397df17a40e78, type: 3}
-  fireRate: 1
+  fireRate: 0.7
   projectileSpeed: 7
   projectileLifeTime: 1
   barrelOffset: 0.5
@@ -820,7 +820,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: efc5b2e186c794b4389cdeda0278c59c, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 1

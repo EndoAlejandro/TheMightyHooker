@@ -35,7 +35,7 @@ public class Projectile : PooledMonoBehaviour
     private IEnumerator LifeTimeCountDown(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
-        ReturnToPool();
+        DestroyProjectile();
     }
 
     private void DestroyProjectile()
