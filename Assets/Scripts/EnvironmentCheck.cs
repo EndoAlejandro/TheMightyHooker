@@ -1,3 +1,4 @@
+using Hazards;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -39,7 +40,13 @@ public class EnvironmentCheck : MonoBehaviour
 
         var results = Physics2D.OverlapCircleNonAlloc(sideToCheck, wallCheckRadius, collisions, wallLayerMask);
 
-        return results > 0;
+        var lastResults = results;
+        for (int i = 0; i < results; i++)
+        {
+            if (collisions[i].TryGetComponent(out Spikes spikes))
+                lastResults += spikes.IsActive ? 0 : -1;
+        }
+        return lastResults > 0;
     }
 
     private bool CheckRightFoot()

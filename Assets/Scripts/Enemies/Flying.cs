@@ -103,7 +103,7 @@ namespace Enemies
             for (int i = 0; i < results; i++)
             {
                 if (collisions[i].TryGetComponent(out Spikes spikes))
-                    lastResults += spikes.IsActive ? -1 : 0;
+                    lastResults += spikes.IsActive ? 0 : -1;
             }
             return lastResults > 0;
         }
