@@ -22,6 +22,7 @@ namespace Hazards
         protected override void Start()
         {
             base.Start();
+            if (onlyShootAtToggle) Renderer.sprite = activeSprite;
             Toggle.OnToggle += OnToggle;
         }
 
@@ -35,7 +36,11 @@ namespace Hazards
         public void OnToggle(bool value)
         {
             if (onlyShootAtToggle) Shoot();
-            else canShoot = invertValue ? !value : value;
+            else
+            {
+                Renderer.sprite = value ? activeSprite : unActiveSprite;
+                canShoot = invertValue ? !value : value;
+            }
         }
 
         private void OnDestroy()

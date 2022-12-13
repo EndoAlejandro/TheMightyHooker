@@ -79,11 +79,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2508ee72e40440ac99b1eb200f5b5ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unActiveSprite: {fileID: 1381054873, guid: 050a3a2a4f3ed4e8e862f31ae1112f18, type: 3}
+  activeSprite: {fileID: 792512221, guid: 050a3a2a4f3ed4e8e862f31ae1112f18, type: 3}
   barrel: {fileID: 6481701025259988279}
   projectilePrefab: {fileID: 824864552613490291, guid: 70b2761b585e09d44aa76ec473b97e65, type: 3}
   shootingRate: 1.5
   projectileSpeed: 7
   onlyShootAtToggle: 1
+  invertValue: 0
 --- !u!212 &6121341069015675583
 SpriteRenderer:
   m_ObjectHideFlags: 0

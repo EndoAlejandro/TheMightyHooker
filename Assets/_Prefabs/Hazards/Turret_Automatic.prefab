@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7f5f33c6ba4ccf9cc35f11cdba8aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unActiveSprite: {fileID: 1381054873, guid: 050a3a2a4f3ed4e8e862f31ae1112f18, type: 3}
+  activeSprite: {fileID: 792512221, guid: 050a3a2a4f3ed4e8e862f31ae1112f18, type: 3}
   barrel: {fileID: 1509287711256064298}
   projectilePrefab: {fileID: 824864552613490291, guid: 70b2761b585e09d44aa76ec473b97e65, type: 3}
   shootingRate: 1.5
