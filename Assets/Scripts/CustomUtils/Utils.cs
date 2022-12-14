@@ -7,12 +7,6 @@ namespace CustomUtils
 {
     public static class Utils
     {
-        public static void ColorLog(string value, Color color)
-        {
-            var convertedColor = ColorUtility.ToHtmlStringRGB(color);
-            Debug.Log($"<color=#{convertedColor}>{value}</color>");
-        }
-        
         public static IEnumerator DieSequence(float animationSpeed, float bulletTime, Action callback = null)
         {
             Time.timeScale = 0.2f;
@@ -27,5 +21,7 @@ namespace CustomUtils
             yield return new WaitForSecondsRealtime(bulletTime);
             callback?.Invoke();
         }
+
+        public static string ProgressFormat(Vector2Int progress) => $"{progress.x + 1} - {progress.y + 1}";
     }
 }

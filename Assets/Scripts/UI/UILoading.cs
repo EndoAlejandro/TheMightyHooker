@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using CustomUtils;
+using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -17,7 +18,7 @@ namespace UI
 
         private void OnLoadingLevel(Vector2Int progress)
         {
-            progressText.SetText($"{progress.x + 1} - {progress.y + 1}");
+            progressText.SetText(Utils.ProgressFormat(progress));
             progressText.gameObject.SetActive(true);
         }
 
