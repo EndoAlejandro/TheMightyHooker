@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
 {
     public event Action<bool> OnPause;
     public event Action<int> OnDeath;
+    public event Action<Vector2Int> OnLoadingLevel;
 
     private Vector2Int currentProgress;
     public Vector2Int CurrentProgress => currentProgress;
@@ -118,15 +119,16 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator LoadGameSceneAsync()
     {
-        yield return LoadingTransition();
+        yield return LoadingTransition(true);
         SceneManager.LoadSceneAsync("Main");
         yield return SceneManager.LoadSceneAsync("Pause_UI", LoadSceneMode.Additive);
     }
 
-    private IEnumerator LoadingTransition()
+    private IEnumerator LoadingTransition(bool loadingGameScene = false)
     {
         yield return SceneManager.LoadSceneAsync("Loading");
-        yield return new WaitForSeconds(1f);
+        if (loadingGameScene) OnLoadingLevel?.Invoke(CurrentProgress);
+        yield return new WaitForSeconds(loadingGameScene ? 2f : 1f);
     }
 
     private IEnumerator GoToMainMenu()
