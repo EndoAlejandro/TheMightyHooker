@@ -22,7 +22,7 @@ public class Projectile : PooledMonoBehaviour
     {
         var t = transform;
         t.right = direction;
-        rigidbody.velocity = t.right * speed;
+        rigidbody.velocity = direction * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D col)

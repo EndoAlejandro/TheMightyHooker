@@ -26,19 +26,11 @@ namespace Hazards
             SetDirection();
         }
 
-        protected virtual void SetDirection()
-        {
-            var x = Renderer.flipX ? -1 : 1;
-            Direction = new Vector2(x, 0f);
-        }
-
+        private void SetDirection() => Direction = (barrel.position - transform.position).normalized;
         protected virtual void Update() => CurrentShootingTime -= Time.deltaTime;
-
         private void ResetShootingTimer() => CurrentShootingTime = shootingRate;
-
         protected void Shoot()
         {
-            Debug.Log("Shoot");
             var projectile = projectilePrefab.Get<Projectile>(barrel.position, Quaternion.identity);
             projectile.Initialize(Direction, projectileSpeed);
             ResetShootingTimer();
