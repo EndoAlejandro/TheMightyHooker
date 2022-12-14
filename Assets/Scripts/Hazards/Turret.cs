@@ -13,10 +13,10 @@ namespace Hazards
         [Header("Shooting")] [SerializeField] private float shootingRate = 1.5f;
         [SerializeField] private float projectileSpeed = 7f;
 
-        protected new SpriteRenderer Renderer;
+        protected SpriteRenderer Renderer;
 
-        protected Vector3 direction;
-        protected float currentShootingTime;
+        protected Vector3 Direction;
+        protected float CurrentShootingTime;
 
         protected virtual void Awake() => Renderer = GetComponent<SpriteRenderer>();
 
@@ -26,21 +26,13 @@ namespace Hazards
             SetDirection();
         }
 
-        protected virtual void SetDirection()
-        {
-            var x = Renderer.flipX ? -1 : 1;
-            direction = new Vector2(x, 0f);
-        }
-
-        protected virtual void Update() => currentShootingTime -= Time.deltaTime;
-
-        private void ResetShootingTimer() => currentShootingTime = shootingRate;
-
+        private void SetDirection() => Direction = (barrel.position - transform.position).normalized;
+        protected virtual void Update() => CurrentShootingTime -= Time.deltaTime;
+        private void ResetShootingTimer() => CurrentShootingTime = shootingRate;
         protected void Shoot()
         {
-            Debug.Log("Shoot");
             var projectile = projectilePrefab.Get<Projectile>(barrel.position, Quaternion.identity);
-            projectile.Initialize(direction, projectileSpeed);
+            projectile.Initialize(Direction, projectileSpeed);
             ResetShootingTimer();
         }
     }
