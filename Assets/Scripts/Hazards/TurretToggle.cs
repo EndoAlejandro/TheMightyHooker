@@ -30,7 +30,7 @@ namespace Hazards
         {
             if (onlyShootAtToggle) return;
             base.Update();
-            if (canShoot && currentShootingTime < 0) Shoot();
+            if (canShoot && CurrentShootingTime < 0) Shoot();
         }
 
         public void OnToggle(bool value)

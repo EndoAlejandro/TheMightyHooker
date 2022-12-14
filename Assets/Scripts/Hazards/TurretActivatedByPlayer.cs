@@ -12,8 +12,8 @@ namespace Hazards
 
         private void FixedUpdate()
         {
-            if (currentShootingTime > 0) return;
-            playerInRange = Physics2D.Linecast(transform.position + direction, aimLimit.position, detectionLayerMask);
+            if (CurrentShootingTime > 0) return;
+            playerInRange = Physics2D.Linecast(transform.position + Direction, aimLimit.position, detectionLayerMask);
             if (playerInRange)
             {
                 if (!activated) Renderer.sprite = activeSprite;
