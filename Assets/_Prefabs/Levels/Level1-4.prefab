@@ -4086,6 +4086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
 --- !u!4 &6523392899379697131 stripped
@@ -4526,6 +4530,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
 --- !u!4 &4668706278489783884 stripped
@@ -4587,6 +4595,10 @@ PrefabInstance:
     - target: {fileID: 6480913870680307928, guid: c32549fb1949f71489438da853a66204, type: 3}
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
@@ -4888,6 +4900,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
 --- !u!4 &2288386367529110469 stripped
@@ -5069,6 +5085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
 --- !u!4 &1355098914675585438 stripped
@@ -5193,6 +5213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
 --- !u!4 &870625461287814559 stripped
@@ -5254,6 +5278,10 @@ PrefabInstance:
     - target: {fileID: 6480913870680307928, guid: c32549fb1949f71489438da853a66204, type: 3}
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
@@ -5663,6 +5691,10 @@ PrefabInstance:
     - target: {fileID: 6480913870680307928, guid: c32549fb1949f71489438da853a66204, type: 3}
       propertyPath: m_Name
       value: Spikes_ActivatedByPlayer (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480913870680307929, guid: c32549fb1949f71489438da853a66204, type: 3}
+      propertyPath: turnOffAfterTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32549fb1949f71489438da853a66204, type: 3}
