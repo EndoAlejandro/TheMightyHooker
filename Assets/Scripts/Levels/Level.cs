@@ -1,6 +1,4 @@
-using Hazards;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Levels
 {
@@ -20,6 +18,7 @@ namespace Levels
 
         private void Awake()
         {
+            levelsManager = GetComponentInParent<LevelsManager>();
             gems = GetComponentsInChildren<PickUp>();
             door = GetComponentInChildren<Door>();
         }
@@ -27,17 +26,16 @@ namespace Levels
         private void Start()
         {
             SetupLevelComponents();
-
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlayMusic(musicClip);
-
-            //if (gems.Length > 0) gems[0].transform.parent.GetComponent<TilemapRenderer>().enabled = false;
         }
 
 
         private void SetupLevelComponents()
         {
-            foreach (var gem in gems) gem.Setup(this);
+            door.AssignManager(levelsManager);
+            foreach (var gem in gems)
+                gem.Setup(this);
         }
 
         public void PickUpGem()

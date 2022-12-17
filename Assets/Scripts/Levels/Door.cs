@@ -8,6 +8,7 @@ namespace Levels
         private static readonly int IsOn = Animator.StringToHash("IsOn");
         private bool isOn;
         private Animator animator;
+        private LevelsManager levelsManager;
 
         private void Awake() => animator = GetComponentInChildren<Animator>();
 
@@ -20,7 +21,9 @@ namespace Levels
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (isOn && col.TryGetComponent(out Player player)) 
-                LevelsManager.WinLevel();
+                levelsManager.WinLevel();
         }
+
+        public void AssignManager(LevelsManager levelsManager) => this.levelsManager = levelsManager;
     }
 }

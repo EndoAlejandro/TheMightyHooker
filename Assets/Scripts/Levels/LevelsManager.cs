@@ -30,7 +30,14 @@ namespace Levels
             }
         }
 
-        public static void WinLevel() => GameManager.Instance.WinLevel(_maxClusterLevel);
+        public void WinLevel()
+        {
+            if (currentLevel >= levelsCluster.Length - 1)
+                GameManager.Instance.WinGame();
+            else
+                GameManager.Instance.WinLevel(_maxClusterLevel);
+        }
+
         public static void LoseLevel() => GameManager.Instance.LoseLevel();
         private void Update() => GameManager.Instance.PlayerMetrics.Tick(Time.deltaTime);
         private void OnApplicationPause(bool pauseStatus) => GameManager.Instance.PauseGame();
