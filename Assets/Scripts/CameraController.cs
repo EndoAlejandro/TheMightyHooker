@@ -26,7 +26,7 @@ public class CameraController : Singleton<CameraController>
 
             transform.position = new Vector3(x, y) + initialPosition;
 
-            currentTime += Time.deltaTime;
+            currentTime += Time.unscaledDeltaTime;
             yield return null;
         }
 

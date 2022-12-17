@@ -81,6 +81,8 @@ public class GameManager : Singleton<GameManager>
 
     public void Options() => StartCoroutine(GoToOptions());
 
+    public void Credits() => StartCoroutine(GoToCredits());
+
     public void LoadContinueGame() => StartCoroutine(LoadGameSceneAsync());
 
     public void LoadNewGame()
@@ -102,6 +104,12 @@ public class GameManager : Singleton<GameManager>
         PlayerMetrics.RegisterDeath();
         OnDeath?.Invoke(PlayerMetrics.DeathCount);
         LoadContinueGame();
+    }
+
+    private IEnumerator GoToCredits()
+    {
+        yield return LoadingTransition();
+        yield return SceneManager.LoadSceneAsync("Credits_UI");
     }
 
     private IEnumerator GoToOptions()
@@ -128,7 +136,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return SceneManager.LoadSceneAsync("Loading");
         if (loadingGameScene) OnLoadingLevel?.Invoke(CurrentProgress);
-        yield return new WaitForSeconds(loadingGameScene ? 2f : 1f);
+        yield return new WaitForSeconds(loadingGameScene ? 2f : 0.25f);
     }
 
     private IEnumerator GoToMainMenu()
