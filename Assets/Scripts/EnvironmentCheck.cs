@@ -1,3 +1,5 @@
+using Hazards;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -38,7 +40,13 @@ public class EnvironmentCheck : MonoBehaviour
 
         var results = Physics2D.OverlapCircleNonAlloc(sideToCheck, wallCheckRadius, collisions, wallLayerMask);
 
-        return results > 0;
+        var lastResults = results;
+        for (int i = 0; i < results; i++)
+        {
+            if (collisions[i].TryGetComponent(out Spikes spikes))
+                lastResults += spikes.IsActive ? 0 : -1;
+        }
+        return lastResults > 0;
     }
 
     private bool CheckRightFoot()
@@ -47,6 +55,20 @@ public class EnvironmentCheck : MonoBehaviour
         return Physics2D.Raycast(origin, Vector2.down, checkDistance, groundLayerMask);
     }
 
-    private bool CheckLeftFoot() =>
-        Physics2D.Raycast(collider.bounds.min, Vector2.down, checkDistance, groundLayerMask);
+    private bool CheckLeftFoot()
+    {
+        var origin = new Vector2(collider.bounds.min.x, collider.bounds.min.y);
+        return Physics2D.Raycast(origin, Vector2.down, checkDistance, groundLayerMask);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        var col = GetComponent<Collider2D>();
+        var leftOrigin = new Vector3(col.bounds.min.x, col.bounds.min.y);
+        Gizmos.DrawLine(leftOrigin, leftOrigin + Vector3.down * checkDistance);
+        Gizmos.color = Color.yellow;
+        var rightOrigin = new Vector3(col.bounds.max.x, col.bounds.min.y);
+        Gizmos.DrawLine(rightOrigin, rightOrigin + Vector3.down * checkDistance);
+    }
 }

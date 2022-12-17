@@ -1,5 +1,6 @@
 ﻿using CustomUtils;
 using Levels;
+using Pooling;
 using UnityEngine;
 
 namespace PlayerComponents
@@ -11,6 +12,7 @@ namespace PlayerComponents
         private static readonly int Grounded = Animator.StringToHash("Grounded");
         private static readonly int Hooking1 = Animator.StringToHash("Hooking");
         private static readonly int Death = Animator.StringToHash("Death");
+        private static readonly int Sliding = Animator.StringToHash("Sliding");
 
         [SerializeField] private Transform body;
 
@@ -52,7 +54,7 @@ namespace PlayerComponents
         private void OnDeath()
         {
             CameraController.Instance.CamShake(deathShake);
-            deathDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
+            deathDust.Get<PoolAfterSeconds>(Player.HookAnchor.position, Quaternion.identity);
             animator.SetTrigger(Death);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.gravityScale = 0f;
@@ -65,7 +67,7 @@ namespace PlayerComponents
             CameraController.Instance.CamShake(jumpShake);
             landDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
         }
-        
+
         private void OnJump()
         {
             CameraController.Instance.CamShake(jumpShake);
@@ -83,15 +85,16 @@ namespace PlayerComponents
             spriteRenderer.flipX = !Player.IsFacingRight;
             animator.SetFloat(Speed, Mathf.Abs(Rigidbody.velocity.x));
             animator.SetFloat(FallSpeed, Mathf.Clamp(Rigidbody.velocity.y, -1f, 1f));
-            animator.SetBool(Grounded, Player.Grounded);
+            animator.SetBool(Grounded, Player.IsGrounded);
             animator.SetBool(Hooking1, Player.IsHooking);
+            animator.SetBool(Sliding, Player.IsSliding);
         }
 
         private void WalkDust()
         {
             walkDustCurrentTime -= Time.deltaTime;
 
-            if (!Player.Grounded || Input.Movement.x == 0 || !(walkDustCurrentTime < 0)) return;
+            if (!Player.IsGrounded || Input.Movement.x == 0 || !(walkDustCurrentTime < 0)) return;
 
             walkDustCurrentTime = walkDustTime;
             walkDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
@@ -103,6 +106,8 @@ namespace PlayerComponents
 
             Player.OnJump -= OnJump;
             Player.OnLanding -= OnLanding;
+            Player.OnDeath -= OnDeath;
+            Player.OnShooting -= OnShooting;
         }
     }
 }

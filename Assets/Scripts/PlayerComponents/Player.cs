@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Enemies;
 using UnityEngine;
 
@@ -13,6 +12,7 @@ namespace PlayerComponents
         public event Action OnHooking;
         public event Action OnDeath;
         public event Action OnShooting;
+        public event Action OnSlimeBlock;
 
         [SerializeField] private Transform hookAnchor;
 
@@ -21,22 +21,31 @@ namespace PlayerComponents
 
         public bool IsAlive { get; private set; }
         public bool IsFacingRight { get; set; } = true;
-        public bool Grounded { get; private set; }
+        public bool IsGrounded { get; private set; }
         public bool IsTouchingWall { get; private set; }
+        public bool IsSliding { get; set; }
         public bool IsHooking { get; set; }
 
-        private void Awake() => environmentCheck = GetComponent<EnvironmentCheck>();
+        private new Rigidbody2D rigidbody;
+
+        private void Awake()
+        {
+            environmentCheck = GetComponent<EnvironmentCheck>();
+            rigidbody = GetComponent<Rigidbody2D>();
+        }
+
         private void Start() => IsAlive = true;
 
         private void FixedUpdate()
         {
-            Grounded = environmentCheck.Grounded;
+            IsGrounded = environmentCheck.Grounded && rigidbody.velocity.y < 0.1f;
             IsTouchingWall = environmentCheck.CheckWalls(IsFacingRight);
         }
 
         public void Jump() => OnJump?.Invoke();
         public void Land() => OnLanding?.Invoke();
         public void Shot() => OnShooting?.Invoke();
+        public void SlimeBlock() => OnSlimeBlock?.Invoke();
 
         public void Hooking(bool isHooking)
         {
@@ -50,13 +59,6 @@ namespace PlayerComponents
             if (!IsAlive) return;
             IsAlive = false;
             OnDeath?.Invoke();
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.magenta;
-            if (HookAnchor == null) return;
-            Gizmos.DrawWireSphere(HookAnchor.position, 7f);
         }
     }
 }

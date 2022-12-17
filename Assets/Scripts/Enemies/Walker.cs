@@ -5,7 +5,7 @@ namespace Enemies
     [RequireComponent(typeof(EnvironmentCheck))]
     public class Walker : Enemy
     {
-        [SerializeField] private float speed;
+        [Header("Movement")] [SerializeField] private float speed;
 
         private EnvironmentCheck environmentCheck;
 
@@ -20,6 +20,8 @@ namespace Enemies
 
         private void FixedUpdate()
         {
+            if (IsStunned) return;
+
             Grounded = environmentCheck.Grounded;
 
             if (!Grounded)
@@ -27,11 +29,11 @@ namespace Enemies
                 Rigidbody.velocity = new Vector2(0f, Rigidbody.velocity.y);
                 return;
             }
-            
+
             Movement();
         }
 
-        private void Movement()
+        protected override void Movement()
         {
             if (environmentCheck.CheckWalls(IsFacingRight))
                 IsFacingRight = !IsFacingRight;

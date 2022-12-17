@@ -1,6 +1,4 @@
-using Hazards;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Levels
 {
@@ -11,10 +9,7 @@ namespace Levels
         [SerializeField] private AudioClip musicClip;
 
         private PickUp[] gems;
-        private Spikes[] spikesArray;
         private Door door;
-
-        // private AudioSource audioSource;
 
         private int gemsCount;
 
@@ -23,41 +18,35 @@ namespace Levels
 
         private void Awake()
         {
+            levelsManager = GetComponentInParent<LevelsManager>();
             gems = GetComponentsInChildren<PickUp>();
-            spikesArray = GetComponentsInChildren<Spikes>();
             door = GetComponentInChildren<Door>();
-            // audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
         {
             SetupLevelComponents();
-
-            SoundManager.Instance.PlayMusic(musicClip);
-            // PLayMusic();
-
-            if (gems.Length > 0)
-                gems[0].transform.parent.GetComponent<TilemapRenderer>().enabled = false;
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlayMusic(musicClip);
         }
 
-        /*private void PLayMusic()
-        {
-            audioSource.loop = true;
-            audioSource.clip = musicClip;
-            audioSource.Play();
-        }*/
 
         private void SetupLevelComponents()
         {
-            foreach (var gem in gems) gem.Setup(this);
-            door.Setup(this);
+            door.AssignManager(levelsManager);
+            foreach (var gem in gems)
+                gem.Setup(this);
         }
 
         public void PickUpGem()
         {
-            SoundManager.Instance.PlayPickUp();
             gemsCount++;
-            if (gemsCount >= gems.Length) door.TurnOn();
+            SoundManager.Instance.PlayPickUp();
+
+            if (gemsCount < gems.Length) return;
+
+            door.TurnOn();
+            SoundManager.Instance.PlayOpenDoor();
         }
     }
 }

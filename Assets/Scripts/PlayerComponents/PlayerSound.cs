@@ -11,6 +11,7 @@ namespace PlayerComponents
         [SerializeField] private AudioClip hookClip;
         [SerializeField] private AudioClip deathClip;
         [SerializeField] private AudioClip shootClip;
+        [SerializeField] private AudioClip slimeClip;
 
         protected override void Awake()
         {
@@ -25,8 +26,10 @@ namespace PlayerComponents
             Player.OnHooking += OnHooking;
             Player.OnDeath += OnDeath;
             Player.OnShooting += OnShooting;
+            Player.OnSlimeBlock += OnSlimeBlock;
         }
 
+        private void OnSlimeBlock() => PlayFx(slimeClip);
         private void OnShooting() => PlayFx(shootClip);
         private void OnDeath() => PlayFx(deathClip, 0.25f);
         private void OnHooking() => PlayFx(hookClip);
@@ -44,7 +47,6 @@ namespace PlayerComponents
             AudioSource.Stop();
             AudioSource.pitch = pitch;
             AudioSource.PlayOneShot(clip);
-            // var duration = (1 - pitch) * 2 * clip.length;
         }
 
         private void OnDestroy()
@@ -54,6 +56,8 @@ namespace PlayerComponents
             Player.OnLanding -= OnLanding;
             Player.OnHooking -= OnHooking;
             Player.OnDeath -= OnDeath;
+            Player.OnShooting -= OnShooting;
+            Player.OnSlimeBlock -= OnSlimeBlock;
         }
     }
 }

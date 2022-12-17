@@ -14,16 +14,20 @@ namespace PlayerComponents
         [SerializeField] private float detectionRange = 7f;
         [SerializeField] private LayerMask layerMask;
 
+        private Vector3 target = Vector3.zero;
+
         private float hookTime;
         private float initialGravity;
 
         private LineRenderer lineRenderer;
+        private HookingDisplay hookingDisplay;
 
         private Collider2D[] collisions;
 
         protected override void Awake()
         {
             base.Awake();
+            hookingDisplay = GetComponentInChildren<HookingDisplay>();
             lineRenderer = GetComponentInChildren<LineRenderer>();
             collisions = new Collider2D[100];
         }
@@ -47,7 +51,8 @@ namespace PlayerComponents
 
         private void RotateCrossHair()
         {
-            var offset = Player.IsFacingRight ? 0 : 180f;
+            var offsetCheck = Player.IsSliding ? !Player.IsFacingRight : Player.IsFacingRight;
+            var offset = offsetCheck ? 0 : 180f;
 
             var targetAngle = Mathf.Abs(Input.Movement.magnitude) > 0
                 ? Vector2.SignedAngle(Vector2.right, Input.Movement.normalized)
@@ -64,45 +69,42 @@ namespace PlayerComponents
             if (GameManager.IsPaused) return;
             if (!Input.Hook || !(hookTime <= 0f) || Player.IsHooking) return;
 
-            var socketInRange = SelectHookInRange();
+            var socketInRange = SelectSocketInRange();
 
-            if (socketInRange == null)
-                MissedHook();
-            else
-                StartCoroutine(HookPulling(socketInRange.transform.position));
+            if (socketInRange != null)
+                StartCoroutine(HookPulling(socketInRange));
         }
 
-        private void MissedHook() => hookTime = hookRate;
-
-        private IEnumerator HookPulling(Vector3 target)
+        private IEnumerator HookPulling(HookSocket socket)
         {
+            target = socket.transform.position;
             Player.Hooking(true);
             Rigidbody.gravityScale = 0f;
             Rigidbody.velocity = Vector2.zero;
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(1, target);
+            hookingDisplay.ActivateRope();
 
             var lastDistance = Vector3.Distance(target, transform.position);
             var currentDistance = lastDistance;
             var direction = (target - transform.position).normalized;
 
-            while (currentDistance <= lastDistance && Input.Hook)
+            while (currentDistance <= lastDistance && Input.Hook && socket.State)
             {
-                lineRenderer.SetPosition(0, lineRenderer.transform.position);
+                hookingDisplay.DrawRopeWaves(target);
                 Rigidbody.velocity = direction * hookSpeed;
                 lastDistance = currentDistance;
                 yield return new WaitForFixedUpdate();
                 currentDistance = Vector3.Distance(target, transform.position);
             }
 
+            hookingDisplay.StopRope();
+            target = Vector3.zero;
             Player.Hooking(false);
-            lineRenderer.enabled = false;
             hookTime = hookRate;
             Rigidbody.gravityScale = initialGravity;
             Rigidbody.velocity = Rigidbody.velocity.normalized * hookResidualSpeed;
         }
 
-        private HookSocket SelectHookInRange()
+        private HookSocket SelectSocketInRange()
         {
             var results = Physics2D.OverlapCircleNonAlloc(Player.HookAnchor.position, detectionRange, collisions);
 
@@ -112,6 +114,7 @@ namespace PlayerComponents
             for (int i = 0; i < results; i++)
             {
                 if (!collisions[i].TryGetComponent(out HookSocket socket)) continue;
+                if (!socket.State) continue;
 
                 var position = transform.position;
                 var hookDirection = GetHookDirection();
@@ -122,13 +125,19 @@ namespace PlayerComponents
 
                 if (!(angle < toleranceAngle) || !(angle < minAngle)) continue;
                 if (Physics2D.Linecast(Player.HookAnchor.position, socket.transform.position, layerMask)) continue;
-                // if (Physics2D.Raycast(Player.HookAnchor.position, socketDirection, distance, layerMask)) continue;
 
                 closestSocket = socket;
                 minAngle = angle;
             }
 
             return closestSocket;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.magenta;
+            var offset = Vector3.up * 0.5f;
+            Gizmos.DrawWireSphere(transform.position + offset, detectionRange);
         }
     }
 }

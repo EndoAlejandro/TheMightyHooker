@@ -157,3 +157,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f957c8aaf6d5f354dbab8d591ad66129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickUpFxPrefab: {fileID: 6118941281204045377, guid: f697bd7b396344e4f90b0dfcf99e7c2f, type: 3}
