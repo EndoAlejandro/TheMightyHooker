@@ -6,6 +6,7 @@ namespace PlayerComponents
     public class Hooking : PlayerComponent
     {
         [SerializeField] private Transform selectedHookDisplay;
+        [SerializeField] private Transform hookPoint;
 
         [SerializeField] private float hookRate = 0.5f;
         [SerializeField] private float hookSpeed = 13f;
@@ -13,8 +14,10 @@ namespace PlayerComponents
         [SerializeField] private float rotationSpeed = 10f;
 
         [SerializeField] private float toleranceAngle = 45f;
+
         [SerializeField] private float detectionRange = 7f;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private LayerMask aimHookLayerMask;
 
         private Vector3 target = Vector3.zero;
 
@@ -24,6 +27,7 @@ namespace PlayerComponents
         private HookingDisplay hookingDisplay;
 
         private Collider2D[] collisions;
+        private RaycastHit2D raycastHit2D;
 
         protected override void Awake()
         {
@@ -67,6 +71,20 @@ namespace PlayerComponents
         private void FixedUpdate()
         {
             if (GameManager.IsPaused) return;
+
+            var hit = Physics2D.Raycast(Player.HookAnchor.position, Player.HookAnchor.right, detectionRange,
+                aimHookLayerMask);
+            
+            if (hit)
+                hookPoint.position = hit.point;
+            else
+                hookPoint.position = Player.HookAnchor.position + Player.HookAnchor.right * detectionRange;
+
+            HookingAction();
+        }
+
+        private void HookingAction()
+        {
             var socketInRange = SelectSocketInRange();
 
             if (socketInRange != null)
