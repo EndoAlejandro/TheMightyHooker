@@ -1,10 +1,11 @@
+using Interfaces;
 using PlayerComponents;
 using Pooling;
 using UnityEngine;
 
 namespace Levels
 {
-    public class PickUp : MonoBehaviour
+    public class PickUp : MonoBehaviour, IResettable
     {
         [SerializeField] private PoolAfterSeconds pickUpFxPrefab;
 
@@ -19,6 +20,12 @@ namespace Levels
             level.PickUpGem();
             gameObject.SetActive(false);
             pickUpFxPrefab.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
+        }
+
+        public void Reset()
+        {
+            if (GameManager.AssistMode) return;
+            gameObject.SetActive(true);
         }
     }
 }

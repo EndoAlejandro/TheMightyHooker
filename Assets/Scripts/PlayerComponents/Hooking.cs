@@ -17,7 +17,6 @@ namespace PlayerComponents
         private Vector3 target = Vector3.zero;
 
         private float hookTime;
-        private float initialGravity;
 
         private LineRenderer lineRenderer;
         private HookingDisplay hookingDisplay;
@@ -36,7 +35,6 @@ namespace PlayerComponents
         {
             lineRenderer.enabled = false;
 
-            initialGravity = Rigidbody.gravityScale;
             hookTime = hookRate;
             Hook.transform.localPosition = new Vector3(detectionRange, 0f, 0f);
         }
@@ -100,7 +98,7 @@ namespace PlayerComponents
             target = Vector3.zero;
             Player.Hooking(false);
             hookTime = hookRate;
-            Rigidbody.gravityScale = initialGravity;
+            Rigidbody.gravityScale = Player.InitialGravity;
             Rigidbody.velocity = Rigidbody.velocity.normalized * hookResidualSpeed;
         }
 

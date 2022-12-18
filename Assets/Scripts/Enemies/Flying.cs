@@ -48,21 +48,27 @@ namespace Enemies
         {
             var x = 0f;
             var y = 0f;
-
+            var constraints = RigidbodyConstraints2D.FreezeRotation;
             switch (movementType)
             {
                 case MovementType.Horizontal:
+                    constraints |= RigidbodyConstraints2D.FreezePositionY;
                     x = Random.Range(0f, 1f) > 0.5f ? 1 : -1;
                     break;
                 case MovementType.Vertical:
+                    constraints |= RigidbodyConstraints2D.FreezePositionX;
                     y = Random.Range(0f, 1f) > 0.5f ? 1 : -1;
                     break;
                 case MovementType.Universal:
                     y = Random.Range(0f, 1f) > 0.5f ? 1 : -1;
                     x = Random.Range(0f, 1f) > 0.5f ? 1 : -1;
                     break;
+                case MovementType.Static:
+                    constraints = RigidbodyConstraints2D.FreezeAll;
+                    break;
             }
 
+            Rigidbody.constraints = constraints;
             direction = new Vector2(x, y).normalized;
         }
 

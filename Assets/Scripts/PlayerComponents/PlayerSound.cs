@@ -19,7 +19,7 @@ namespace PlayerComponents
             AudioSource = GetComponentInChildren<AudioSource>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             Player.OnJump += OnJump;
             Player.OnLanding += OnLanding;
@@ -49,9 +49,10 @@ namespace PlayerComponents
             AudioSource.PlayOneShot(clip);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (Player == null) return;
+
             Player.OnJump -= OnJump;
             Player.OnLanding -= OnLanding;
             Player.OnHooking -= OnHooking;

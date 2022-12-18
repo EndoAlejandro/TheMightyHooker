@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Levels
 {
     [RequireComponent(typeof(AudioSource))]
-    public class ToggleTimer : MonoBehaviour, IToggle
+    public class ToggleTimer : MonoBehaviour, IToggle, IResettable
     {
         public event Action<bool> OnToggle;
 
@@ -27,23 +27,29 @@ namespace Levels
             audioSource.loop = false;
             
             ResetTimer();
-            state = !initialState;
-            Toggle();
+        }
+
+        public void Reset() => InitialState();
+        
+        public void InitialState()
+        {
+            ResetTimer();
+            Toggle(initialState);
         }
 
         private void Update()
         {
             currentToggleTime -= Time.deltaTime;
 
-            if (currentToggleTime < 0) Toggle();
+            if (currentToggleTime < 0) Toggle(!state);
         }
 
         private void ResetTimer() => currentToggleTime = toggleTime;
 
-        private void Toggle()
+        private void Toggle(bool value)
         {
+            state = value;
             ResetTimer();
-            state = !state;
             audioSource.Play();
             OnToggle?.Invoke(state);
         }

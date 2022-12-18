@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83eccfcae9440b54eb9cf6bf269108c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialPoolSize: 2
   hookAnchor: {fileID: 9156122726233624745}
 --- !u!114 &9156122726420407117
 MonoBehaviour:
@@ -615,6 +616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 9156122725592209793}
   deathDust: {fileID: 1613075469872103127, guid: 911c7a3249e7b384494a4c1dfbe1617a, type: 3}
+  spawnDust: {fileID: 0}
   deathAnimationSpeed: 1
   bulletTime: 0.5
   deathShake: {x: 0.5, y: 0.05}

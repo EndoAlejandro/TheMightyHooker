@@ -29,7 +29,7 @@ namespace PlayerComponents
 
         private float maxFallSpeed;
 
-        private void Start()
+        private void OnEnable()
         {
             Player.OnSlimeBlock += OnSlimeBlock;
             Player.OnHooking += OnHooking;
@@ -176,7 +176,7 @@ namespace PlayerComponents
 
         #endregion
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (Player == null) return;
             Player.OnSlimeBlock -= OnSlimeBlock;

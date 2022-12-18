@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Levels
 {
     [RequireComponent(typeof(AudioSource))]
-    public class ToggleButton : MonoBehaviour, IToggle
+    public class ToggleButton : MonoBehaviour, IToggle, IResettable
     {
         public event Action<bool> OnToggle;
 
@@ -37,10 +37,11 @@ namespace Levels
         {
             audioSource.clip = clip;
             audioSource.loop = false;
-
-            SetState(initialState, false);
         }
 
+        public void InitialState() => SetState(initialState, false);
+        public void Reset() => InitialState();
+        
         public void SetRuler(ToggleButtonRuler ruler, ToggleButtonRuler.ButtonType buttonType)
         {
             this.ruler = ruler;

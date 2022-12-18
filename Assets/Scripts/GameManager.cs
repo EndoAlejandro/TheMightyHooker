@@ -14,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     public Vector2Int CurrentProgress => currentProgress;
 
     public static bool IsPaused { get; private set; }
-
+    public static bool AssistMode { get; private set; }
     public PlayerMetrics PlayerMetrics { get; private set; }
 
     protected override void Awake()
@@ -99,11 +99,11 @@ public class GameManager : Singleton<GameManager>
         SaveSystem.SetProgress(currentProgress);
     }
 
-    public void LoseLevel()
+    public void PlayerDeath()
     {
         PlayerMetrics.RegisterDeath();
         OnDeath?.Invoke(PlayerMetrics.DeathCount);
-        LoadContinueGame();
+        // LoadContinueGame();
     }
 
     private IEnumerator GoToCredits()
@@ -127,6 +127,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator LoadGameSceneAsync()
     {
+        AssistMode = SaveSystem.GetAssistMode();
         yield return LoadingTransition(true);
         SceneManager.LoadSceneAsync("Main");
         yield return SceneManager.LoadSceneAsync("Pause_UI", LoadSceneMode.Additive);

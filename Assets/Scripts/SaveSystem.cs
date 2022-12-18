@@ -11,6 +11,7 @@ public static class SaveSystem
         SubLevel,
         Time,
         DeathCount,
+        AssistMode
     }
 
     public static float GetVolume(PrefsField field)
@@ -57,4 +58,14 @@ public static class SaveSystem
         PlayerPrefs.SetInt(PrefsField.DeathCount.ToString(), metrics.DeathCount);
         PlayerPrefs.SetFloat(PrefsField.Time.ToString(), metrics.PlayTime);
     }
+
+    public static bool GetAssistMode()
+    {
+        var assistValue = PlayerPrefs.HasKey(PrefsField.AssistMode.ToString())
+            ? PlayerPrefs.GetInt(PrefsField.AssistMode.ToString())
+            : 0;
+        return assistValue == 1;
+    }
+
+    public static void SetAssistMode(bool value) => PlayerPrefs.SetInt(PrefsField.AssistMode.ToString(), value ? 1 : 0);
 }

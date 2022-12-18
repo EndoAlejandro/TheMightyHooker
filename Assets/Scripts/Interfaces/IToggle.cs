@@ -5,5 +5,6 @@ namespace Interfaces
     public interface IToggle
     {
         event Action<bool> OnToggle;
+        void InitialState();
     }
 }
