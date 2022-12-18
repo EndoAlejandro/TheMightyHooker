@@ -41,20 +41,21 @@ namespace PlayerComponents
             base.Awake();
             animator = body.GetComponent<Animator>();
             spriteRenderer = body.GetComponent<SpriteRenderer>();
-        }
 
-        private void OnEnable()
-        {
             Player.OnJump += OnJump;
             Player.OnLanding += OnLanding;
             Player.OnDeath += OnDeath;
             Player.OnShooting += OnShooting;
-
-            spriteRenderer.enabled = true;
-            animator.SetTrigger(Spawn);
+            Player.OnSpawn += OnSpawn;
         }
 
         private void OnShooting() => CameraController.Instance.CamShake(shootShake);
+
+        private void OnSpawn()
+        {
+            spriteRenderer.enabled = true;
+            animator.SetTrigger(Spawn);
+        }
 
         private void OnDeath()
         {
@@ -105,7 +106,7 @@ namespace PlayerComponents
             walkDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (Player == null) return;
 
@@ -113,6 +114,7 @@ namespace PlayerComponents
             Player.OnLanding -= OnLanding;
             Player.OnDeath -= OnDeath;
             Player.OnShooting -= OnShooting;
+            Player.OnSpawn -= OnSpawn;
         }
     }
 }

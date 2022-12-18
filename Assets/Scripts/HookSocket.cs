@@ -7,7 +7,7 @@ public class HookSocket : MonoBehaviour, IToggleChild
     [SerializeField] private bool invertValue;
     [SerializeField] private Color unActiveColor;
     [SerializeField] private PoolAfterSeconds toggleFx;
-    
+
     private readonly Color activeColor = Color.white;
     private new SpriteRenderer renderer;
 
@@ -19,6 +19,7 @@ public class HookSocket : MonoBehaviour, IToggleChild
     {
         Toggle = GetComponentInParent<IToggle>();
         renderer = GetComponentInChildren<SpriteRenderer>();
+        
         if (Toggle != null)
             Toggle.OnToggle += OnToggle;
     }

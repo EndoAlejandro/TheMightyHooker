@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System.Collections;
+using Interfaces;
 using PlayerComponents;
 using Pooling;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace Hazards
         {
             renderer = GetComponentInChildren<SpriteRenderer>();
             Toggle = GetComponentInParent<IToggle>();
-
+            
             Toggle.OnToggle += OnToggle;
             activeSprite = renderer.sprite;
         }

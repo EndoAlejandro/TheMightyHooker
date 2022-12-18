@@ -1,18 +1,18 @@
 ﻿using System;
 using Enemies;
 using Levels;
-using Pooling;
 using UnityEngine;
 
 namespace PlayerComponents
 {
     [RequireComponent(typeof(EnvironmentCheck))]
-    public class Player : PooledMonoBehaviour, IDie
+    public class Player : MonoBehaviour, IDie
     {
         public event Action OnJump;
         public event Action OnLanding;
         public event Action OnHooking;
         public event Action OnDeath;
+        public event Action OnSpawn;
         public event Action OnShooting;
         public event Action OnSlimeBlock;
 
@@ -21,7 +21,6 @@ namespace PlayerComponents
         private new Rigidbody2D rigidbody;
         private new Collider2D collider;
         private EnvironmentCheck environmentCheck;
-        private Transform poolParent;
 
         public Transform HookAnchor => hookAnchor;
         public Level Level { get; private set; }
@@ -41,15 +40,7 @@ namespace PlayerComponents
             InitialGravity = rigidbody.gravityScale;
         }
 
-        private void Start() => poolParent = transform.parent;
-
-        private void OnEnable()
-        {
-            IsAlive = true;
-            collider.enabled = true;
-            rigidbody.gravityScale = InitialGravity;
-            rigidbody.velocity = Vector2.zero;
-        }
+        private void Start() => Spawn();
 
         private void FixedUpdate()
         {
@@ -72,17 +63,22 @@ namespace PlayerComponents
         public void Die()
         {
             if (!IsAlive) return;
-            transform.parent = poolParent;
             IsAlive = false;
             collider.enabled = false;
             OnDeath?.Invoke();
         }
 
-        public void DeSpawn() => ReturnToPool();
-
+        public void Spawn()
+        {
+            IsAlive = true;
+            collider.enabled = true;
+            rigidbody.gravityScale = InitialGravity;
+            rigidbody.velocity = Vector2.zero;
+            OnSpawn?.Invoke();
+        }
+        
         public void AssignLevel(Level createdLevel) => Level = createdLevel;
-
         public void OnMovingPlatform(Transform body) => transform.parent = body;
-        public void OffMovingPlatform() => transform.parent = poolParent;
+        public void OffMovingPlatform() => transform.parent = null;
     }
 }

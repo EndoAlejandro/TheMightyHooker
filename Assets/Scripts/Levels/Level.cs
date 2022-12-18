@@ -37,8 +37,9 @@ namespace Levels
 
         private void SpawnPlayer()
         {
-            player = levelsManager.PlayerPrefab.Get<Player>(playerSpawnPoint.position, Quaternion.identity);
+            player = Instantiate(levelsManager.PlayerPrefab, playerSpawnPoint.position, Quaternion.identity);
             player.AssignLevel(this);
+            // player.Spawn();
         }
 
         private void SetupLevelComponents()
@@ -71,9 +72,9 @@ namespace Levels
         public void PlayerDeath()
         {
             GameManager.Instance.PlayerDeath();
-            player.DeSpawn();
-            SpawnPlayer();
             DoResets();
+            player.transform.position = playerSpawnPoint.position;
+            player.Spawn();
         }
     }
 }

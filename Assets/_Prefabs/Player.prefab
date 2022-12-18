@@ -542,7 +542,7 @@ MonoBehaviour:
   coyoteTime: 0.17
   fallSpeedLimit: 12
   jumpCancellationScale: 10
-  horizontalJumpForce: 15
+  horizontalJumpForce: 5
   wallFallSpeedLimit: 2.5
 --- !u!114 &9156122726420407114
 MonoBehaviour:
