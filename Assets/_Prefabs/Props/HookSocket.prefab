@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invertValue: 0
   unActiveColor: {r: 1, g: 0, b: 0, a: 1}
+  toggleFx: {fileID: 4819131563802597278, guid: 8a94ef744f759b547a45d37a6c6f76c6, type: 3}
 --- !u!58 &740657139
 CircleCollider2D:
   m_ObjectHideFlags: 0

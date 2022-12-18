@@ -1,10 +1,14 @@
 ﻿using Interfaces;
+using Pooling;
+using UnityEngine;
 
 namespace Platforms
 {
     public class PlatformToggle : PlatformMovingAutomatic, IToggleChild
     {
+        [SerializeField] private PoolAfterSeconds toggleFx;
         public IToggle Toggle { get; private set; }
+        public PoolAfterSeconds ToggleFx => toggleFx;
         public bool State { get; private set; }
 
         protected override void Awake()
@@ -27,6 +31,8 @@ namespace Platforms
 
         public void OnToggle(bool value)
         {
+            var t = transform;
+            ToggleFx.Get<PoolAfterSeconds>(t.position, t.rotation);
             State = value;
             CurrentStillTime = 0;
             ChangeSprites(State);

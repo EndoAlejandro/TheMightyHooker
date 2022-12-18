@@ -29,15 +29,13 @@ namespace Enemies
         {
             collider = GetComponent<Collider2D>();
             Rigidbody = GetComponent<Rigidbody2D>();
+
+            initialPosition = transform.position;
         }
 
         protected abstract void Movement();
 
-        protected virtual void Start()
-        {
-            IsAlive = true;
-            initialPosition = transform.position;
-        }
+        protected virtual void Start() => IsAlive = true;
 
         protected virtual void OnCollisionEnter2D(Collision2D col)
         {
@@ -78,6 +76,7 @@ namespace Enemies
 
         public void Reset()
         {
+            SetStunState(false);
             IsAlive = true;
             transform.position = initialPosition;
             gameObject.SetActive(true);

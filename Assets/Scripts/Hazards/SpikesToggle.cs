@@ -1,5 +1,4 @@
-﻿using System;
-using Interfaces;
+﻿using Interfaces;
 using PlayerComponents;
 using Pooling;
 using UnityEngine;
@@ -13,6 +12,7 @@ namespace Hazards
         [SerializeField] private Sprite unActiveSprite;
 
         public IToggle Toggle { get; private set; }
+        public PoolAfterSeconds ToggleFx => toggleFx;
         public bool State { get; private set; }
         public override bool IsActive => State;
 
@@ -30,7 +30,8 @@ namespace Hazards
 
         public void OnToggle(bool value)
         {
-            toggleFx.Get<PoolAfterSeconds>(transform.position, transform.rotation);
+            var t = transform;
+            ToggleFx.Get<PoolAfterSeconds>(t.position, t.rotation);
             State = invertValue ? !value : value;
             renderer.sprite = State ? activeSprite : unActiveSprite;
         }

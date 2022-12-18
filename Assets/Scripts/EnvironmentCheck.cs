@@ -22,9 +22,8 @@ public class EnvironmentCheck : MonoBehaviour
     private void Awake()
     {
         collider = GetComponent<Collider2D>();
-        collisions = new Collider2D[10];
+        collisions = new Collider2D[20];
     }
-
 
     private void Update()
     {

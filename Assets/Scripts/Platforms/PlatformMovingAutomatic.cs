@@ -41,7 +41,7 @@ namespace Platforms
         private void SwitchDirection()
         {
             ChangeSprites(false);
-            
+
             CanMove = false;
 
             GoingToEndPoint = !GoingToEndPoint;
@@ -60,7 +60,7 @@ namespace Platforms
             var perpendicularity = Vector2.Dot(col.contacts[0].normal, Vector2.down);
 
             if (perpendicularity >= normalTolerance)
-                player.transform.SetParent(body);
+                player.OnMovingPlatform(body);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
@@ -71,8 +71,8 @@ namespace Platforms
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.transform.parent == body)
-                other.transform.parent = null;
+            if (!other.transform.TryGetComponent(out Player player)) return;
+            player.OffMovingPlatform();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Interfaces;
 using PlayerComponents;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Hazards
 {
-    public class SpikesActivatedByPlayer : Spikes
+    public class SpikesActivatedByPlayer : Spikes, IResettable
     {
         [Header("Spike type")]
         [SerializeField] private bool turnOffAfterTime = true;
@@ -93,5 +94,7 @@ namespace Hazards
             yield return new WaitForSeconds(waitTime);
             SetSpikesState(status);
         }
+
+        public void Reset() => SetSpikesState(false);
     }
 }

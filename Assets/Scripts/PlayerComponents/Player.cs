@@ -21,6 +21,7 @@ namespace PlayerComponents
         private new Rigidbody2D rigidbody;
         private new Collider2D collider;
         private EnvironmentCheck environmentCheck;
+        private Transform poolParent;
 
         public Transform HookAnchor => hookAnchor;
         public Level Level { get; private set; }
@@ -77,5 +78,14 @@ namespace PlayerComponents
         public void DeSpawn() => ReturnToPool();
 
         public void AssignLevel(Level createdLevel) => Level = createdLevel;
+
+        public void OnMovingPlatform(Transform body)
+        {
+            var t = transform;
+            poolParent = t.parent;
+            t.parent = body;
+        }
+
+        public void OffMovingPlatform() => transform.parent = poolParent;
     }
 }
