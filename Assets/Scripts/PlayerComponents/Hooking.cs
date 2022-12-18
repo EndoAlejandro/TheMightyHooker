@@ -5,6 +5,8 @@ namespace PlayerComponents
 {
     public class Hooking : PlayerComponent
     {
+        [SerializeField] private Transform selectedHookDisplay;
+
         [SerializeField] private float hookRate = 0.5f;
         [SerializeField] private float hookSpeed = 13f;
         [SerializeField] private float hookResidualSpeed = 5f;
@@ -65,12 +67,19 @@ namespace PlayerComponents
         private void FixedUpdate()
         {
             if (GameManager.IsPaused) return;
-            if (!Input.Hook || !(hookTime <= 0f) || Player.IsHooking) return;
-
             var socketInRange = SelectSocketInRange();
 
             if (socketInRange != null)
+            {
+                selectedHookDisplay.position = socketInRange.transform.position;
+                selectedHookDisplay.gameObject.SetActive(true);
+                if (!Input.Hook || !(hookTime <= 0f) || Player.IsHooking) return;
                 StartCoroutine(HookPulling(socketInRange));
+            }
+            else
+            {
+                selectedHookDisplay.gameObject.SetActive(false);
+            }
         }
 
         private IEnumerator HookPulling(HookSocket socket)
