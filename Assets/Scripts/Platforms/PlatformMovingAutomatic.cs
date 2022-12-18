@@ -7,7 +7,7 @@ namespace Platforms
     {
         protected virtual void Start()
         {
-            Target = !GoingToEndPoint ? startPoint.position : endPoint.position;
+            Target = GoingToEndPoint ? endPoint.position : startPoint.position;
             SwitchDirection();
         }
 
@@ -38,7 +38,7 @@ namespace Platforms
             Distance = GetDistance();
         }
 
-        private void SwitchDirection()
+        /*private void SwitchDirection()
         {
             ChangeSprites(false);
 
@@ -51,7 +51,7 @@ namespace Platforms
             Direction = (Target - body.transform.position).normalized;
 
             Distance = GetDistance();
-        }
+        }*/
 
         private void OnCollisionEnter2D(Collision2D col)
         {

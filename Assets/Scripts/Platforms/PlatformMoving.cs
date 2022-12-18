@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 namespace Platforms
 {
-    public abstract class PlatformMoving : MonoBehaviour
+    public abstract class PlatformMoving : MonoBehaviour, IResettable
     {
         [Header("Display")] [SerializeField] protected Sprite movingPlatform;
         [SerializeField] protected Sprite stillPlatform;
@@ -18,11 +19,11 @@ namespace Platforms
         [SerializeField] protected float stillTime;
 
         private SpriteRenderer[] renderers;
-
+        
         protected Vector3 Direction;
         protected Vector3 Target;
 
-        protected bool GoingToEndPoint;
+        public bool GoingToEndPoint { get; protected set; }
         protected bool CanMove;
 
         protected bool EndReached => LastDistance < Distance;
@@ -40,6 +41,28 @@ namespace Platforms
                 spriteRenderer.sprite = moving ? movingPlatform : stillPlatform;
         }
         
-        protected float GetDistance() => Vector3.Distance(Target, body.transform.position);
+        protected float GetDistance() => Vector3.Distance(Target, body.position);
+        
+        protected void SwitchDirection()
+        {
+            ChangeSprites(false);
+
+            CanMove = false;
+
+            GoingToEndPoint = !GoingToEndPoint;
+            CurrentStillTime = stillTime;
+
+            Target = GoingToEndPoint ? endPoint.position : startPoint.position;
+            Direction = (Target - body.transform.position).normalized;
+
+            Distance = GetDistance();
+        }
+        
+        public void Reset()
+        {
+            GoingToEndPoint = false;
+            body.position = startPoint.position;
+            SwitchDirection();
+        }
     }
 }

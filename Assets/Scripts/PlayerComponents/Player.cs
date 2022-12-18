@@ -41,6 +41,8 @@ namespace PlayerComponents
             InitialGravity = rigidbody.gravityScale;
         }
 
+        private void Start() => poolParent = transform.parent;
+
         private void OnEnable()
         {
             IsAlive = true;
@@ -70,6 +72,7 @@ namespace PlayerComponents
         public void Die()
         {
             if (!IsAlive) return;
+            transform.parent = poolParent;
             IsAlive = false;
             collider.enabled = false;
             OnDeath?.Invoke();
@@ -79,13 +82,7 @@ namespace PlayerComponents
 
         public void AssignLevel(Level createdLevel) => Level = createdLevel;
 
-        public void OnMovingPlatform(Transform body)
-        {
-            var t = transform;
-            poolParent = t.parent;
-            t.parent = body;
-        }
-
+        public void OnMovingPlatform(Transform body) => transform.parent = body;
         public void OffMovingPlatform() => transform.parent = poolParent;
     }
 }
