@@ -72,15 +72,19 @@ namespace PlayerComponents
         {
             if (GameManager.IsPaused) return;
 
+            HookAimPoint();
+            HookingAction();
+        }
+
+        private void HookAimPoint()
+        {
             var hit = Physics2D.Raycast(Player.HookAnchor.position, Player.HookAnchor.right, detectionRange,
                 aimHookLayerMask);
-            
+
             if (hit)
                 hookPoint.position = hit.point;
             else
                 hookPoint.position = Player.HookAnchor.position + Player.HookAnchor.right * detectionRange;
-
-            HookingAction();
         }
 
         private void HookingAction()
@@ -91,13 +95,35 @@ namespace PlayerComponents
             {
                 selectedHookDisplay.position = socketInRange.transform.position;
                 selectedHookDisplay.gameObject.SetActive(true);
-                if (!Input.Hook || !(hookTime <= 0f) || Player.IsHooking) return;
+                if (CantHook()) return;
                 StartCoroutine(HookPulling(socketInRange));
             }
             else
             {
                 selectedHookDisplay.gameObject.SetActive(false);
+                if (CantHook()) return;
+                StartCoroutine(FailedHook());
             }
+        }
+
+        private bool CantHook() => !Input.Hook || !(hookTime <= 0f) || Player.IsHooking;
+
+        private IEnumerator FailedHook()
+        {
+            var elapsedTime = 0f;
+            hookingDisplay.ActivateRope();
+            Player.Hooking(true);
+
+            while (Input.Hook && elapsedTime < 0.15f)
+            {
+                hookingDisplay.DrawRopeWaves(hookPoint.position);
+                elapsedTime += Time.unscaledDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            Player.Hooking(false);
+            hookTime = hookRate;
+            hookingDisplay.StopRope();
         }
 
         private IEnumerator HookPulling(HookSocket socket)
