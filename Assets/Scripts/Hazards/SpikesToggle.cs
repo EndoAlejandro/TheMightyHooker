@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Enemies;
 using Interfaces;
 using PlayerComponents;
 using Pooling;
@@ -39,14 +40,22 @@ namespace Hazards
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.TryGetComponent(out Player player)) return;
-            if (State) KillPLayer(player);
+            CheckForEntity(other);
+            // if (!other.TryGetComponent(out Player player)) return;
+            // if (State) KillPLayer(player);
         }
 
         protected override void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.TryGetComponent(out Player player)) return;
-            if (State) KillPLayer(player);
+            CheckForEntity(col);
+            // if (!col.TryGetComponent(out Player player)) return;
+            // if (State) KillPLayer(player);
+        }
+
+        private void CheckForEntity(Collider2D col)
+        {
+            if(!col.TryGetComponent(out IDie entity)) return;
+            if(State) KillEntity(entity);
         }
 
         private void OnDestroy()

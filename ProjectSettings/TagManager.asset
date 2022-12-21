@@ -41,6 +41,9 @@ TagManager:
   - name: Background
     uniqueID: 714748693
     locked: 0
+  - name: Socket
+    uniqueID: 2197964111
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
