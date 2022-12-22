@@ -5612,7 +5612,7 @@ PrefabInstance:
     - target: {fileID: 7041672679146916681, guid: 26ac0528d34d5a74f9d789da519c8371, type: 3}
       propertyPath: clip
       value: 
-      objectReference: {fileID: 8300000, guid: 7a6922112cbd94cb4a54b8b259ee8389, type: 3}
+      objectReference: {fileID: 8300000, guid: 5cf19f591509c4d4c94c61c952f436c5, type: 3}
     - target: {fileID: 7041672679146916681, guid: 26ac0528d34d5a74f9d789da519c8371, type: 3}
       propertyPath: initialState
       value: 0
