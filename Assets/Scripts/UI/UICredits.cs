@@ -7,7 +7,7 @@ namespace UI
     public class UICredits : MonoBehaviour
     {
         [SerializeField] private float speed = 0.5f;
-
+        [SerializeField] private float waitTime = 1f;
         private ScrollRect scrollRect;
 
         private float currentPosition;
@@ -18,6 +18,12 @@ namespace UI
 
         private void Update()
         {
+            if (waitTime > 0)
+            {
+                waitTime -= Time.deltaTime;
+                return;
+            }
+
             scrollRect.verticalNormalizedPosition = currentPosition;
             if (currentPosition > 0)
                 currentPosition -= Time.deltaTime * speed;
