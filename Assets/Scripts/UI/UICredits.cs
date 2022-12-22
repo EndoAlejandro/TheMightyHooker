@@ -22,7 +22,6 @@ namespace UI
             if (currentPosition > 0)
                 currentPosition -= Time.deltaTime * speed;
             else if (currentPosition < 0) currentPosition = 0;
-            Debug.Log(scrollRect.verticalNormalizedPosition);
         }
 
         public void HomeButtonPressed() => GameManager.Instance.ReturnToMainMenu();
