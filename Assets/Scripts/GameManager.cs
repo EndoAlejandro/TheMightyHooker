@@ -103,7 +103,6 @@ public class GameManager : Singleton<GameManager>
     {
         PlayerMetrics.RegisterDeath();
         OnDeath?.Invoke(PlayerMetrics.DeathCount);
-        // LoadContinueGame();
     }
 
     private IEnumerator GoToCredits()

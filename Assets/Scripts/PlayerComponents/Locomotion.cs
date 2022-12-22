@@ -49,10 +49,10 @@ namespace PlayerComponents
 
             Friction();
 
-            if (Mathf.Abs(Input.Movement.x) > 0.1f || Player.IsGrounded || !Player.IsTouchingWall)
+            if (Mathf.Abs(InputReader.Movement.x) > 0.1f || Player.IsGrounded || !Player.IsTouchingWall)
                 WallSlide();
 
-            if (Input.Jump && (lastJumpTime < 0))
+            if (InputReader.Jump && (lastJumpTime < 0))
             {
                 if (Player.IsSliding)
                     WallJump();
@@ -61,7 +61,7 @@ namespace PlayerComponents
             }
 
 
-            if (!Input.Jump && isJumping && Rigidbody.velocity.y > 0)
+            if (!InputReader.Jump && isJumping && Rigidbody.velocity.y > 0)
                 JumpCancellation();
 
             LimitFallingSpeed();
@@ -156,7 +156,7 @@ namespace PlayerComponents
 
         private void Run()
         {
-            var targetSpeed = Input.Movement.x * speed;
+            var targetSpeed = InputReader.Movement.x * speed;
             var speedDifference = targetSpeed - Rigidbody.velocity.x;
             var accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
             var movement = Mathf.Pow(Mathf.Abs(speedDifference) * accelerationRate, velocityPower) *
@@ -167,7 +167,7 @@ namespace PlayerComponents
 
         private void Friction()
         {
-            if (!Player.IsGrounded || !(Mathf.Abs(Input.Movement.x) < 0.01f)) return;
+            if (!Player.IsGrounded || !(Mathf.Abs(InputReader.Movement.x) < 0.01f)) return;
 
             var amount = Mathf.Min(Mathf.Abs(Rigidbody.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(Rigidbody.velocity.x);

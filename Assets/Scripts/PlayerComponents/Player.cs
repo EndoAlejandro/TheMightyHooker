@@ -63,6 +63,7 @@ namespace PlayerComponents
         public void Die()
         {
             if (!IsAlive) return;
+            transform.parent = null;
             IsAlive = false;
             collider.enabled = false;
             OnDeath?.Invoke();

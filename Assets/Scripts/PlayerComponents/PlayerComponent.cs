@@ -3,19 +3,19 @@ using UnityEngine;
 namespace PlayerComponents
 {
     [RequireComponent(typeof(Player))]
-    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerInputReader))]
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class PlayerComponent : MonoBehaviour
     {
         protected Player Player;
-        protected PlayerInput Input;
+        protected PlayerInputReader InputReader;
         protected Rigidbody2D Rigidbody;
         protected Hook Hook;
 
         protected virtual void Awake()
         {
             Player = GetComponent<Player>();
-            Input = GetComponent<PlayerInput>();
+            InputReader = GetComponent<PlayerInputReader>();
             Rigidbody = GetComponent<Rigidbody2D>();
             Hook = GetComponentInChildren<Hook>();
         }

@@ -1,3 +1,4 @@
+using System;
 using PlayerComponents;
 using UnityEngine;
 
@@ -18,10 +19,12 @@ namespace Levels
             animator.SetBool(IsOn1, true);
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void OnTriggerStay2D(Collider2D col)
         {
-            if (IsOn && col.TryGetComponent(out Player player))
-                levelsManager.WinLevel();
+            if (!IsOn || !col.TryGetComponent(out Player player)) return;
+            
+            IsOn = false;
+            levelsManager.WinLevel();
         }
 
         public void AssignManager(LevelsManager levelsManager) => this.levelsManager = levelsManager;

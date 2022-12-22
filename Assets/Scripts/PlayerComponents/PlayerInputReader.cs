@@ -1,16 +1,21 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PlayerComponents
 {
-    public class PlayerInput : MonoBehaviour
+    public class PlayerInputReader : MonoBehaviour
     {
+        public static PlayerInput PlayerInput;
+
         public Vector2 Movement { get; private set; }
 
         public bool Jump { get; private set; }
         public bool Hook { get; private set; }
         public bool Shoot { get; private set; }
         public bool Pause { get; private set; }
+
+        private void Awake() => PlayerInput = GetComponent<PlayerInput>();
 
         private void Update()
         {

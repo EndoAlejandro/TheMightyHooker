@@ -23,7 +23,7 @@ namespace PlayerComponents
 
             currentFireRate -= Time.deltaTime;
 
-            if (CanShoot && Input.Shoot && !Player.IsHooking)
+            if (CanShoot && InputReader.Shoot && !Player.IsHooking)
                 Shoot();
         }
 

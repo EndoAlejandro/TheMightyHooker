@@ -38,7 +38,7 @@ public class Projectile : PooledMonoBehaviour
         DestroyProjectile();
     }
 
-    private void DestroyProjectile()
+    public void DestroyProjectile()
     {
         var fx = collisionFxPrefab.Get<ShotHitFx>(transform.position, Quaternion.identity);
         fx.PlayAnimation();

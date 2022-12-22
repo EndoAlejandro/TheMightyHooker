@@ -35,11 +35,6 @@ namespace Levels
                 GameManager.Instance.WinLevel(_maxClusterLevel);
         }
 
-        public static void LoseLevel()
-        {
-            GameManager.Instance.PlayerDeath();
-        }
-
         private void Update() => GameManager.Instance.PlayerMetrics.Tick(Time.deltaTime);
         private void OnApplicationPause(bool pauseStatus) => GameManager.Instance.PauseGame();
 

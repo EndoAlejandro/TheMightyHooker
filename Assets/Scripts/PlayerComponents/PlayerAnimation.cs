@@ -84,7 +84,7 @@ namespace PlayerComponents
         {
             if (GameManager.IsPaused || !Player.IsAlive) return;
 
-            if (Input.Movement.x != 0) Player.IsFacingRight = Input.Movement.x > 0;
+            if (InputReader.Movement.x != 0) Player.IsFacingRight = InputReader.Movement.x > 0;
 
             WalkDust();
 
@@ -100,7 +100,7 @@ namespace PlayerComponents
         {
             walkDustCurrentTime -= Time.deltaTime;
 
-            if (!Player.IsGrounded || Input.Movement.x == 0 || !(walkDustCurrentTime < 0)) return;
+            if (!Player.IsGrounded || InputReader.Movement.x == 0 || !(walkDustCurrentTime < 0)) return;
 
             walkDustCurrentTime = walkDustTime;
             walkDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);

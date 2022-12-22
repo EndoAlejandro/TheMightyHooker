@@ -58,8 +58,8 @@ namespace PlayerComponents
             var offsetCheck = Player.IsSliding ? !Player.IsFacingRight : Player.IsFacingRight;
             var offset = offsetCheck ? 0 : 180f;
 
-            var targetAngle = Mathf.Abs(Input.Movement.magnitude) > 0
-                ? Vector2.SignedAngle(Vector2.right, Input.Movement.normalized)
+            var targetAngle = Mathf.Abs(InputReader.Movement.magnitude) > 0
+                ? Vector2.SignedAngle(Vector2.right, InputReader.Movement.normalized)
                 : offset;
 
             var angle = Mathf.LerpAngle(Player.HookAnchor.localRotation.eulerAngles.z, targetAngle,
@@ -106,7 +106,7 @@ namespace PlayerComponents
             }
         }
 
-        private bool CantHook() => !Input.Hook || !(hookTime <= 0f) || Player.IsHooking;
+        private bool CantHook() => !InputReader.Hook || !(hookTime <= 0f) || Player.IsHooking;
 
         private IEnumerator FailedHook()
         {
@@ -114,7 +114,7 @@ namespace PlayerComponents
             hookingDisplay.ActivateRope();
             Player.Hooking(true);
 
-            while (Input.Hook && elapsedTime < 0.15f)
+            while (InputReader.Hook && elapsedTime < 0.15f)
             {
                 hookingDisplay.DrawRopeWaves(hookPoint.position);
                 elapsedTime += Time.unscaledDeltaTime;
@@ -138,7 +138,7 @@ namespace PlayerComponents
             var currentDistance = lastDistance;
             var direction = (target - transform.position).normalized;
 
-            while (currentDistance <= lastDistance && Input.Hook && socket.State)
+            while (currentDistance <= lastDistance && InputReader.Hook && socket.State)
             {
                 hookingDisplay.DrawRopeWaves(target);
                 Rigidbody.velocity = direction * hookSpeed;

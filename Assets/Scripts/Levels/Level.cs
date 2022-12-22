@@ -1,4 +1,3 @@
-using Enemies;
 using Interfaces;
 using PlayerComponents;
 using UnityEngine;
@@ -39,7 +38,6 @@ namespace Levels
         {
             player = Instantiate(levelsManager.PlayerPrefab, playerSpawnPoint.position, Quaternion.identity);
             player.AssignLevel(this);
-            // player.Spawn();
         }
 
         private void SetupLevelComponents()
@@ -53,6 +51,9 @@ namespace Levels
         {
             if (!GameManager.AssistMode) gemsCount = 0;
 
+            var projectiles = FindObjectsOfType<Projectile>();
+            foreach (var projectile in projectiles) projectile.DestroyProjectile();
+            
             if (gemsCount < gems.Length && door.IsOn) door.TurnOff();
 
             foreach (var reset in resettable) reset.Reset();
