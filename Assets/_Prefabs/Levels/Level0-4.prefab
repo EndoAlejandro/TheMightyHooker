@@ -4192,7 +4192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpawnPoint: {fileID: 7727765476801126971}
-  musicClip: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
+  musicClip: {fileID: 8300000, guid: 51a4f1157b7ff1449b5e5cf064d584c7, type: 3}
 --- !u!1001 &651615520673372520
 PrefabInstance:
   m_ObjectHideFlags: 0
