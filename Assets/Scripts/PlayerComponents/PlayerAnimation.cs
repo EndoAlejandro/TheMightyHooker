@@ -1,5 +1,5 @@
-﻿using CustomUtils;
-using Levels;
+﻿using System;
+using CustomUtils;
 using Pooling;
 using UnityEngine;
 
@@ -13,10 +13,12 @@ namespace PlayerComponents
         private static readonly int Hooking1 = Animator.StringToHash("Hooking");
         private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Sliding = Animator.StringToHash("Sliding");
+        private static readonly int Spawn = Animator.StringToHash("Spawn");
 
         [SerializeField] private Transform body;
 
         [Header("Death")] [SerializeField] private PoolAfterSeconds deathDust;
+        [SerializeField] private PoolAfterSeconds spawnDust;
         [SerializeField] private float deathAnimationSpeed = 1f;
         [SerializeField] private float bulletTime = 0.5f;
         [SerializeField] private Vector2 deathShake = new Vector2(0.5f, 0.05f);
@@ -39,17 +41,21 @@ namespace PlayerComponents
             base.Awake();
             animator = body.GetComponent<Animator>();
             spriteRenderer = body.GetComponent<SpriteRenderer>();
-        }
 
-        private void Start()
-        {
             Player.OnJump += OnJump;
             Player.OnLanding += OnLanding;
             Player.OnDeath += OnDeath;
             Player.OnShooting += OnShooting;
+            Player.OnSpawn += OnSpawn;
         }
 
         private void OnShooting() => CameraController.Instance.CamShake(shootShake);
+
+        private void OnSpawn()
+        {
+            spriteRenderer.enabled = true;
+            animator.SetTrigger(Spawn);
+        }
 
         private void OnDeath()
         {
@@ -59,7 +65,7 @@ namespace PlayerComponents
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.gravityScale = 0f;
             spriteRenderer.enabled = false;
-            StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, LevelsManager.LoseLevel));
+            StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, Player.Level.PlayerDeath));
         }
 
         private void OnLanding()
@@ -78,7 +84,7 @@ namespace PlayerComponents
         {
             if (GameManager.IsPaused || !Player.IsAlive) return;
 
-            if (Input.Movement.x != 0) Player.IsFacingRight = Input.Movement.x > 0;
+            if (InputReader.Movement.x != 0) Player.IsFacingRight = InputReader.Movement.x > 0;
 
             WalkDust();
 
@@ -94,7 +100,7 @@ namespace PlayerComponents
         {
             walkDustCurrentTime -= Time.deltaTime;
 
-            if (!Player.IsGrounded || Input.Movement.x == 0 || !(walkDustCurrentTime < 0)) return;
+            if (!Player.IsGrounded || InputReader.Movement.x == 0 || !(walkDustCurrentTime < 0)) return;
 
             walkDustCurrentTime = walkDustTime;
             walkDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
@@ -108,6 +114,7 @@ namespace PlayerComponents
             Player.OnLanding -= OnLanding;
             Player.OnDeath -= OnDeath;
             Player.OnShooting -= OnShooting;
+            Player.OnSpawn -= OnSpawn;
         }
     }
 }

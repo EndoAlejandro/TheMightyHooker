@@ -87,6 +87,7 @@ MonoBehaviour:
   projectileSpeed: 7
   onlyShootAtToggle: 1
   invertValue: 0
+  toggleFx: {fileID: 4819131563802597278, guid: 8a94ef744f759b547a45d37a6c6f76c6, type: 3}
 --- !u!212 &6121341069015675583
 SpriteRenderer:
   m_ObjectHideFlags: 0

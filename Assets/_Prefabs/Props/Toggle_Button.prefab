@@ -52,6 +52,7 @@ MonoBehaviour:
   initialState: 1
   turnOffAfterTime: 1
   deActivationDelay: 2
+  normalTolerance: 0.25
   activeSprite: {fileID: 1100947179, guid: 6f587194ac2a7b243b44344c69cde1a7, type: 3}
   unActiveSprite: {fileID: -1124944697, guid: 6f587194ac2a7b243b44344c69cde1a7, type: 3}
   clip: {fileID: 8300000, guid: 5cf19f591509c4d4c94c61c952f436c5, type: 3}
@@ -114,7 +115,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7041672679146916724}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

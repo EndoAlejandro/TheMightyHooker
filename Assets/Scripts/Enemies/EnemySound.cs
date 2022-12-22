@@ -16,7 +16,7 @@ namespace Enemies
             AudioSource = GetComponentInChildren<AudioSource>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             Enemy.OnDeath += OnDeath;
             Enemy.OnStun += OnStun;
@@ -26,7 +26,7 @@ namespace Enemies
         private void OnDeath() => PlayFx(deathClip);
         public void PlayFx(AudioClip clip) => AudioSource.PlayOneShot(clip);
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (Enemy == null) return;
             Enemy.OnStun -= OnStun;

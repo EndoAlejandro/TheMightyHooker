@@ -31,10 +31,20 @@ namespace Enemies
 
         private void Start()
         {
+            Enemy.OnSpawn += OnSpawn;
+        }
+
+        private void OnSpawn()
+        {
+            collider.enabled = true;
+            renderer.enabled = true;
+        }
+
+        private void OnEnable()
+        {
             Enemy.OnDeath += OnDeath;
             Enemy.OnStun += OnStun;
         }
-
 
         private void Update()
         {
@@ -51,16 +61,22 @@ namespace Enemies
             renderer.enabled = false;
             CameraController.Instance.CamShake(deathShake);
             deathDust.Get<PoolAfterSeconds>(transform.position, Quaternion.identity);
-            StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, () => Destroy(gameObject)));
+            StartCoroutine(Utils.DieSequence(deathAnimationSpeed, bulletTime, () => gameObject.SetActive(false)));
         }
-        
+
         private void OnStun(bool state) => animator.SetBool(Stun, state);
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (Enemy == null) return;
             Enemy.OnDeath -= OnDeath;
             Enemy.OnStun -= OnStun;
+        }
+
+        private void OnDestroy()
+        {
+            if (Enemy == null) return;
+            Enemy.OnSpawn -= OnSpawn;
         }
     }
 }

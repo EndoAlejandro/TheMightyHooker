@@ -41,8 +41,23 @@ TagManager:
   - name: Background
     uniqueID: 714748693
     locked: 0
+  - name: Socket
+    uniqueID: 2197964111
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PickUp
+    uniqueID: 1457768671
+    locked: 0
+  - name: Spikes
+    uniqueID: 4247280449
+    locked: 0
+  - name: MovingPlatform
+    uniqueID: 2250718455
+    locked: 0
+  - name: Fx
+    uniqueID: 3055116477
     locked: 0
   - name: Decoration
     uniqueID: 1691822097

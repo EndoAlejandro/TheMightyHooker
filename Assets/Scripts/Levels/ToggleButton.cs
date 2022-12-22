@@ -7,13 +7,14 @@ using UnityEngine;
 namespace Levels
 {
     [RequireComponent(typeof(AudioSource))]
-    public class ToggleButton : MonoBehaviour, IToggle
+    public class ToggleButton : MonoBehaviour, IToggle, IResettable
     {
         public event Action<bool> OnToggle;
 
         [Header("Behaviour")] [SerializeField] private bool initialState;
         [SerializeField] private bool turnOffAfterTime;
         [SerializeField] private float deActivationDelay = 2f;
+        [Range(0f, 1f)] [SerializeField] protected float normalTolerance = 0.25f;
 
         [Header("Display")] [SerializeField] private Sprite activeSprite;
         [SerializeField] private Sprite unActiveSprite;
@@ -37,9 +38,10 @@ namespace Levels
         {
             audioSource.clip = clip;
             audioSource.loop = false;
-
-            SetState(initialState, false);
         }
+
+        public void InitialState() => SetState(initialState, false);
+        public void Reset() => InitialState();
 
         public void SetRuler(ToggleButtonRuler ruler, ToggleButtonRuler.ButtonType buttonType)
         {
@@ -78,9 +80,13 @@ namespace Levels
             SetState(false);
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void OnCollisionStay2D(Collision2D col)
         {
-            if (!isPressed && col.TryGetComponent(out Player player))
+            if (isPressed || !col.transform.TryGetComponent(out Player player)) return;
+
+            var perpendicularity = Vector2.Dot(col.contacts[0].normal, Vector2.down);
+
+            if (perpendicularity >= normalTolerance)
                 SetState(true);
         }
     }

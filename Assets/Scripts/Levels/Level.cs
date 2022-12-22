@@ -1,3 +1,5 @@
+using Interfaces;
+using PlayerComponents;
 using UnityEngine;
 
 namespace Levels
@@ -5,20 +7,21 @@ namespace Levels
     public class Level : MonoBehaviour
     {
         [SerializeField] private Transform playerSpawnPoint;
-
         [SerializeField] private AudioClip musicClip;
 
         private PickUp[] gems;
+        private IResettable[] resettable;
         private Door door;
+        private Player player;
 
         private int gemsCount;
 
         private LevelsManager levelsManager;
-        public Transform PlayerSpawnPoint => playerSpawnPoint;
 
         private void Awake()
         {
             levelsManager = GetComponentInParent<LevelsManager>();
+            resettable = GetComponentsInChildren<IResettable>();
             gems = GetComponentsInChildren<PickUp>();
             door = GetComponentInChildren<Door>();
         }
@@ -26,16 +29,34 @@ namespace Levels
         private void Start()
         {
             SetupLevelComponents();
+            SpawnPlayer();
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlayMusic(musicClip);
         }
 
+        private void SpawnPlayer()
+        {
+            player = Instantiate(levelsManager.PlayerPrefab, playerSpawnPoint.position, Quaternion.identity);
+            player.AssignLevel(this);
+        }
 
         private void SetupLevelComponents()
         {
             door.AssignManager(levelsManager);
-            foreach (var gem in gems)
-                gem.Setup(this);
+            DoResets();
+            foreach (var gem in gems) gem.Setup(this);
+        }
+
+        private void DoResets()
+        {
+            if (!GameManager.AssistMode) gemsCount = 0;
+
+            var projectiles = FindObjectsOfType<Projectile>();
+            foreach (var projectile in projectiles) projectile.DestroyProjectile();
+            
+            if (gemsCount < gems.Length && door.IsOn) door.TurnOff();
+
+            foreach (var reset in resettable) reset.Reset();
         }
 
         public void PickUpGem()
@@ -47,6 +68,14 @@ namespace Levels
 
             door.TurnOn();
             SoundManager.Instance.PlayOpenDoor();
+        }
+
+        public void PlayerDeath()
+        {
+            GameManager.Instance.PlayerDeath();
+            DoResets();
+            player.transform.position = playerSpawnPoint.position;
+            player.Spawn();
         }
     }
 }

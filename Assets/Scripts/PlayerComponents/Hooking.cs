@@ -5,24 +5,29 @@ namespace PlayerComponents
 {
     public class Hooking : PlayerComponent
     {
+        [SerializeField] private Transform selectedHookDisplay;
+        [SerializeField] private Transform hookPoint;
+
         [SerializeField] private float hookRate = 0.5f;
         [SerializeField] private float hookSpeed = 13f;
         [SerializeField] private float hookResidualSpeed = 5f;
         [SerializeField] private float rotationSpeed = 10f;
 
         [SerializeField] private float toleranceAngle = 45f;
+
         [SerializeField] private float detectionRange = 7f;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private LayerMask aimHookLayerMask;
 
         private Vector3 target = Vector3.zero;
 
         private float hookTime;
-        private float initialGravity;
 
         private LineRenderer lineRenderer;
         private HookingDisplay hookingDisplay;
 
         private Collider2D[] collisions;
+        private RaycastHit2D raycastHit2D;
 
         protected override void Awake()
         {
@@ -36,7 +41,6 @@ namespace PlayerComponents
         {
             lineRenderer.enabled = false;
 
-            initialGravity = Rigidbody.gravityScale;
             hookTime = hookRate;
             Hook.transform.localPosition = new Vector3(detectionRange, 0f, 0f);
         }
@@ -54,8 +58,8 @@ namespace PlayerComponents
             var offsetCheck = Player.IsSliding ? !Player.IsFacingRight : Player.IsFacingRight;
             var offset = offsetCheck ? 0 : 180f;
 
-            var targetAngle = Mathf.Abs(Input.Movement.magnitude) > 0
-                ? Vector2.SignedAngle(Vector2.right, Input.Movement.normalized)
+            var targetAngle = Mathf.Abs(InputReader.Movement.magnitude) > 0
+                ? Vector2.SignedAngle(Vector2.right, InputReader.Movement.normalized)
                 : offset;
 
             var angle = Mathf.LerpAngle(Player.HookAnchor.localRotation.eulerAngles.z, targetAngle,
@@ -67,12 +71,59 @@ namespace PlayerComponents
         private void FixedUpdate()
         {
             if (GameManager.IsPaused) return;
-            if (!Input.Hook || !(hookTime <= 0f) || Player.IsHooking) return;
 
+            HookAimPoint();
+            HookingAction();
+        }
+
+        private void HookAimPoint()
+        {
+            var hit = Physics2D.Raycast(Player.HookAnchor.position, Player.HookAnchor.right, detectionRange,
+                aimHookLayerMask);
+
+            if (hit)
+                hookPoint.position = hit.point;
+            else
+                hookPoint.position = Player.HookAnchor.position + Player.HookAnchor.right * detectionRange;
+        }
+
+        private void HookingAction()
+        {
             var socketInRange = SelectSocketInRange();
 
             if (socketInRange != null)
+            {
+                selectedHookDisplay.position = socketInRange.transform.position;
+                selectedHookDisplay.gameObject.SetActive(true);
+                if (CantHook()) return;
                 StartCoroutine(HookPulling(socketInRange));
+            }
+            else
+            {
+                selectedHookDisplay.gameObject.SetActive(false);
+                if (CantHook()) return;
+                StartCoroutine(FailedHook());
+            }
+        }
+
+        private bool CantHook() => !InputReader.Hook || !(hookTime <= 0f) || Player.IsHooking;
+
+        private IEnumerator FailedHook()
+        {
+            var elapsedTime = 0f;
+            hookingDisplay.ActivateRope();
+            Player.Hooking(true);
+
+            while (InputReader.Hook && elapsedTime < 0.15f)
+            {
+                hookingDisplay.DrawRopeWaves(hookPoint.position);
+                elapsedTime += Time.unscaledDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            Player.Hooking(false);
+            hookTime = hookRate;
+            hookingDisplay.StopRope();
         }
 
         private IEnumerator HookPulling(HookSocket socket)
@@ -87,7 +138,7 @@ namespace PlayerComponents
             var currentDistance = lastDistance;
             var direction = (target - transform.position).normalized;
 
-            while (currentDistance <= lastDistance && Input.Hook && socket.State)
+            while (currentDistance <= lastDistance && InputReader.Hook && socket.State)
             {
                 hookingDisplay.DrawRopeWaves(target);
                 Rigidbody.velocity = direction * hookSpeed;
@@ -100,7 +151,7 @@ namespace PlayerComponents
             target = Vector3.zero;
             Player.Hooking(false);
             hookTime = hookRate;
-            Rigidbody.gravityScale = initialGravity;
+            Rigidbody.gravityScale = Player.InitialGravity;
             Rigidbody.velocity = Rigidbody.velocity.normalized * hookResidualSpeed;
         }
 

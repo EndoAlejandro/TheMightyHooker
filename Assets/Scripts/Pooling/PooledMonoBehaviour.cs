@@ -6,6 +6,7 @@ namespace Pooling
 {
     public class PooledMonoBehaviour : MonoBehaviour {
     
+        [Header("Pooling")]
         [SerializeField] private int initialPoolSize = 50;
 
         public event Action<PooledMonoBehaviour> OnReturnToPool;

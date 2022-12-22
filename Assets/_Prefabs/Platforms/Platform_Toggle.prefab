@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2044248841
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2124464904, guid: 957385599c6a51e40981aa45435f60b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -289,6 +289,7 @@ MonoBehaviour:
   normalTolerance: 0.25
   speed: 2
   stillTime: 1
+  toggleFx: {fileID: 4819131563802597278, guid: 8a94ef744f759b547a45d37a6c6f76c6, type: 3}
 --- !u!50 &1738821398841159638
 Rigidbody2D:
   serializedVersion: 4

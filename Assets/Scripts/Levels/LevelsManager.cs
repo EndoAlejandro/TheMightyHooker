@@ -9,6 +9,8 @@ namespace Levels
         [SerializeField] private Player playerPrefab;
         [SerializeField] private LevelCluster[] levelsCluster;
 
+        public Player PlayerPrefab => playerPrefab;
+
         private int currentLevel;
         private int currentSubLevel;
 
@@ -19,26 +21,20 @@ namespace Levels
             currentLevel = GameManager.Instance.CurrentProgress.x;
             currentSubLevel = GameManager.Instance.CurrentProgress.y;
 
-            if (currentLevel >= levelsCluster.Length)
-                GameManager.Instance.WinGame();
-            else
-            {
-                _maxClusterLevel = levelsCluster[currentLevel].levels.Length;
-                var level = levelsCluster[currentLevel].levels[currentSubLevel];
-                Instantiate(level, transform);
-                var player = Instantiate(playerPrefab, level.PlayerSpawnPoint.position, Quaternion.identity);
-            }
+            _maxClusterLevel = levelsCluster[currentLevel].levels.Length;
+            var level = levelsCluster[currentLevel].levels[currentSubLevel];
+            Instantiate(level, transform);
         }
 
         public void WinLevel()
         {
-            if (currentLevel >= levelsCluster.Length - 1)
+            if (currentLevel >= levelsCluster.Length - 1 &&
+                currentSubLevel >= levelsCluster[currentLevel].levels.Length - 1)
                 GameManager.Instance.WinGame();
             else
                 GameManager.Instance.WinLevel(_maxClusterLevel);
         }
 
-        public static void LoseLevel() => GameManager.Instance.LoseLevel();
         private void Update() => GameManager.Instance.PlayerMetrics.Tick(Time.deltaTime);
         private void OnApplicationPause(bool pauseStatus) => GameManager.Instance.PauseGame();
 

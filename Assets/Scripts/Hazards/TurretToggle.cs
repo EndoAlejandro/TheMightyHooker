@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Pooling;
 using UnityEngine;
 
 namespace Hazards
@@ -7,8 +8,10 @@ namespace Hazards
     {
         [SerializeField] private bool onlyShootAtToggle;
         [SerializeField] private bool invertValue;
+        [SerializeField] private PoolAfterSeconds toggleFx;
 
         public IToggle Toggle { get; private set; }
+        public PoolAfterSeconds ToggleFx => toggleFx;
         public bool State { get; private set; }
 
         private bool canShoot;
@@ -35,6 +38,9 @@ namespace Hazards
 
         public void OnToggle(bool value)
         {
+            var t = transform;
+            ToggleFx.Get<PoolAfterSeconds>(t.position, t.rotation);
+            
             if (onlyShootAtToggle) Shoot();
             else
             {

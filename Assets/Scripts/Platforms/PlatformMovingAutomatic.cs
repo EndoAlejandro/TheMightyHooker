@@ -5,11 +5,7 @@ namespace Platforms
 {
     public class PlatformMovingAutomatic : PlatformMoving
     {
-        protected virtual void Start()
-        {
-            Target = !GoingToEndPoint ? startPoint.position : endPoint.position;
-            SwitchDirection();
-        }
+        protected virtual void Start() => Reset();
 
         protected virtual void Update()
         {
@@ -38,21 +34,6 @@ namespace Platforms
             Distance = GetDistance();
         }
 
-        private void SwitchDirection()
-        {
-            ChangeSprites(false);
-            
-            CanMove = false;
-
-            GoingToEndPoint = !GoingToEndPoint;
-            CurrentStillTime = stillTime;
-
-            Target = GoingToEndPoint ? endPoint.position : startPoint.position;
-            Direction = (Target - body.transform.position).normalized;
-
-            Distance = GetDistance();
-        }
-
         private void OnCollisionEnter2D(Collision2D col)
         {
             if (!col.transform.TryGetComponent(out Player player)) return;
@@ -60,7 +41,7 @@ namespace Platforms
             var perpendicularity = Vector2.Dot(col.contacts[0].normal, Vector2.down);
 
             if (perpendicularity >= normalTolerance)
-                player.transform.SetParent(body);
+                player.OnMovingPlatform(body);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
@@ -71,8 +52,8 @@ namespace Platforms
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.transform.parent == body)
-                other.transform.parent = null;
+            if (!other.transform.TryGetComponent(out Player player)) return;
+            player.OffMovingPlatform();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections;
+using Enemies;
 using Interfaces;
 using PlayerComponents;
 using Pooling;
@@ -13,6 +14,7 @@ namespace Hazards
         [SerializeField] private Sprite unActiveSprite;
 
         public IToggle Toggle { get; private set; }
+        public PoolAfterSeconds ToggleFx => toggleFx;
         public bool State { get; private set; }
         public override bool IsActive => State;
 
@@ -23,28 +25,37 @@ namespace Hazards
         {
             renderer = GetComponentInChildren<SpriteRenderer>();
             Toggle = GetComponentInParent<IToggle>();
-
+            
             Toggle.OnToggle += OnToggle;
             activeSprite = renderer.sprite;
         }
 
         public void OnToggle(bool value)
         {
-            toggleFx.Get<PoolAfterSeconds>(transform.position, transform.rotation);
+            var t = transform;
+            ToggleFx.Get<PoolAfterSeconds>(t.position, t.rotation);
             State = invertValue ? !value : value;
             renderer.sprite = State ? activeSprite : unActiveSprite;
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.TryGetComponent(out Player player)) return;
-            if (State) KillPLayer(player);
+            CheckForEntity(other);
+            // if (!other.TryGetComponent(out Player player)) return;
+            // if (State) KillPLayer(player);
         }
 
         protected override void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.TryGetComponent(out Player player)) return;
-            if (State) KillPLayer(player);
+            CheckForEntity(col);
+            // if (!col.TryGetComponent(out Player player)) return;
+            // if (State) KillPLayer(player);
+        }
+
+        private void CheckForEntity(Collider2D col)
+        {
+            if(!col.TryGetComponent(out IDie entity)) return;
+            if(State) KillEntity(entity);
         }
 
         private void OnDestroy()
