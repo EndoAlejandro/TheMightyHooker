@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69925baddaf840189fa1b829cd42ae03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugColor: {r: 0, g: 1, b: 0.14819956, a: 0.34901962}
+  secondDebugColor: {r: 1, g: 0, b: 0, a: 0.36078432}
   turnOffAfterTime: 1
   activationDelay: 1
   deActivationDelay: 2

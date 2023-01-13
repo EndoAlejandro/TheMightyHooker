@@ -159,6 +159,7 @@ MonoBehaviour:
   stunTime: 5
   canDie: 0
   speed: 2
+  debugColor: {r: 1, g: 0, b: 0.908308, a: 0.53333336}
 --- !u!114 &578464856096304576
 MonoBehaviour:
   m_ObjectHideFlags: 0

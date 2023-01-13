@@ -234,6 +234,8 @@ MonoBehaviour:
   bottomPoint: {fileID: 9127374133021635874}
   leftPoint: {fileID: 90683241082014637}
   rightPoint: {fileID: 8717662899182926163}
+  debugColor: {r: 0.10893297, g: 0, b: 1, a: 0.40392157}
+  cardinalColor: {r: 1, g: 0, b: 0, a: 0.7529412}
 --- !u!114 &3420134093983776915
 MonoBehaviour:
   m_ObjectHideFlags: 0

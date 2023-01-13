@@ -290,6 +290,8 @@ MonoBehaviour:
   speed: 2
   stillTime: 1
   toggleFx: {fileID: 4819131563802597278, guid: 8a94ef744f759b547a45d37a6c6f76c6, type: 3}
+  debugCenter: {fileID: 1738821396837732510}
+  debugColor: {r: 1, g: 0, b: 0, a: 0.5529412}
 --- !u!50 &1738821398841159638
 Rigidbody2D:
   serializedVersion: 4

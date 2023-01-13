@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611b0f5fd1701e74580a9f96c1ca35ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugColor: {r: 0, g: 1, b: 0.26057076, a: 0.33333334}
+  secondDebugColor: {r: 1, g: 0, b: 0, a: 0.27058825}
 --- !u!61 &1482121324011124167
 BoxCollider2D:
   m_ObjectHideFlags: 0

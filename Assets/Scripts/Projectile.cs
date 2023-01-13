@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Enemies;
 using Pooling;
@@ -50,4 +51,13 @@ public class Projectile : PooledMonoBehaviour
         rigidbody.velocity = Vector2.zero;
         base.OnDisable();
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = debugColor;
+        var collider = GetComponent<Collider2D>();
+        Gizmos.DrawSphere(collider.bounds.center, collider.bounds.size.x / 2);
+    }
+
+    [ColorUsage(true, false)] public Color debugColor;
 }

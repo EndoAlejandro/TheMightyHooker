@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPoolSize: 10
   collisionFxPrefab: {fileID: 5647865691360534661, guid: f417bd88f08a15b48874205c58570c03, type: 3}
+  debugColor: {r: 0.0047169924, g: 0.9748834, b: 1, a: 0.6313726}
 --- !u!212 &1960683032501799839
 SpriteRenderer:
   m_ObjectHideFlags: 0

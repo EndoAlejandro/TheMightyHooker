@@ -111,16 +111,23 @@ namespace Enemies
                 if (collisions[i].TryGetComponent(out Spikes spikes))
                     lastResults += spikes.IsActive ? 0 : -1;
             }
+
             return lastResults > 0;
         }
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(topPoint.position, collisionDetectionRange);
-            Gizmos.DrawWireSphere(bottomPoint.position, collisionDetectionRange);
-            Gizmos.DrawWireSphere(leftPoint.position, collisionDetectionRange);
-            Gizmos.DrawWireSphere(rightPoint.position, collisionDetectionRange);
+            Gizmos.color = cardinalColor;
+            Gizmos.DrawSphere(topPoint.position, collisionDetectionRange);
+            Gizmos.DrawSphere(bottomPoint.position, collisionDetectionRange);
+            Gizmos.DrawSphere(leftPoint.position, collisionDetectionRange);
+            Gizmos.DrawSphere(rightPoint.position, collisionDetectionRange);
+            Gizmos.color = debugColor;
+            var collider = GetComponent<Collider2D>();
+            Gizmos.DrawSphere(collider.bounds.center, collider.bounds.size.x / 2);
         }
+
+        [ColorUsage(true, false)] public Color debugColor;
+        [ColorUsage(true, false)] public Color cardinalColor;
     }
 }

@@ -44,6 +44,7 @@ public class EnvironmentCheck : MonoBehaviour
             if (collisions[i].TryGetComponent(out Spikes spikes))
                 lastResults += spikes.IsActive ? 0 : -1;
         }
+
         return lastResults > 0;
     }
 
@@ -61,12 +62,17 @@ public class EnvironmentCheck : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
         var col = GetComponent<Collider2D>();
         var leftOrigin = new Vector3(col.bounds.min.x, col.bounds.min.y);
-        Gizmos.DrawLine(leftOrigin, leftOrigin + Vector3.down * checkDistance);
-        Gizmos.color = Color.yellow;
+        var leftPoint = (leftOrigin + (leftOrigin + Vector3.down * checkDistance)) / 2;
+        
         var rightOrigin = new Vector3(col.bounds.max.x, col.bounds.min.y);
-        Gizmos.DrawLine(rightOrigin, rightOrigin + Vector3.down * checkDistance);
+        var rightPoint = (rightOrigin + (rightOrigin + Vector3.down * checkDistance)) / 2;
+        
+        var size = Vector3.one * checkDistance;
+        
+        Gizmos.color = Grounded ? Color.green : Color.red;
+        Gizmos.DrawCube(leftPoint, size);
+        Gizmos.DrawCube(rightPoint, size);
     }
 }

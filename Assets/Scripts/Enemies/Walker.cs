@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Enemies
 {
@@ -48,5 +49,13 @@ namespace Enemies
             direction = IsFacingRight ? 1 : -1;
             Rigidbody.velocity = new Vector2(speed * direction, Rigidbody.velocity.y);
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = debugColor;
+            var collider = GetComponent<BoxCollider2D>();
+            Gizmos.DrawCube(collider.bounds.center, collider.bounds.size);
+        }
+        [ColorUsage(true, false)] public Color debugColor;
     }
 }

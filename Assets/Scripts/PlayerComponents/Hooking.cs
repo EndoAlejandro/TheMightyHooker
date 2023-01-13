@@ -186,9 +186,14 @@ namespace PlayerComponents
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.magenta;
+            Gizmos.color = selectedHookDisplay.gameObject.activeSelf ? activeSphereColor : unActiveSphereColor;
             var offset = Vector3.up * 0.5f;
+            Gizmos.DrawSphere(transform.position + offset, detectionRange);
+            Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(transform.position + offset, detectionRange);
         }
+
+        [ColorUsage(true, false)] public Color activeSphereColor;
+        [ColorUsage(true, false)] public Color unActiveSphereColor;
     }
 }

@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookAnchor: {fileID: 9156122726233624745}
+  sphereColor: {r: 0, g: 1, b: 0.0049893856, a: 0.827451}
 --- !u!114 &9156122726420407117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +655,8 @@ MonoBehaviour:
   aimHookLayerMask:
     serializedVersion: 2
     m_Bits: 129
+  activeSphereColor: {r: 0, g: 0.9906864, b: 1, a: 0.15686275}
+  unActiveSphereColor: {r: 0.9811321, g: 0, b: 0.011088749, a: 0.15686275}
 --- !u!114 &9156122726420407119
 MonoBehaviour:
   m_ObjectHideFlags: 0

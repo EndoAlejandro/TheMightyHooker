@@ -77,9 +77,18 @@ namespace PlayerComponents
             rigidbody.velocity = Vector2.zero;
             OnSpawn?.Invoke();
         }
-        
+
         public void AssignLevel(Level createdLevel) => Level = createdLevel;
         public void OnMovingPlatform(Transform body) => transform.parent = body;
         public void OffMovingPlatform() => transform.parent = null;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = sphereColor;
+            var col = GetComponent<Collider2D>();
+            Gizmos.DrawSphere(col.bounds.center, col.bounds.size.x / 2);
+        }
+
+        [ColorUsage(true, false)] public Color sphereColor;
     }
 }
