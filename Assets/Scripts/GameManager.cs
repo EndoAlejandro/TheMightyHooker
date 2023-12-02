@@ -32,6 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PauseGame()
     {
+        Cursor.lockState = CursorLockMode.None;
         IsPaused = true;
         Time.timeScale = 0;
         OnPause?.Invoke(IsPaused);
@@ -39,6 +40,7 @@ public class GameManager : Singleton<GameManager>
 
     public void UnPauseGame()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         IsPaused = false;
         Time.timeScale = 1;
         OnPause?.Invoke(IsPaused);
@@ -126,6 +128,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator LoadGameSceneAsync()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         AssistMode = SaveSystem.GetAssistMode();
         yield return LoadingTransition(true);
         SceneManager.LoadSceneAsync("Main");
@@ -141,6 +144,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator GoToMainMenu()
     {
+        Cursor.lockState = CursorLockMode.None;
         yield return LoadingTransition();
         yield return SceneManager.LoadSceneAsync("Title_UI");
         SoundManager.Instance.PlayMainMenu();
